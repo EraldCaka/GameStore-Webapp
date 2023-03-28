@@ -1,10 +1,8 @@
-# Ecommerce-Webapp
+# GameStore-Webapp
+
 Senior Project for Empire State University
 
-
-
-Front-end technologies:
--
+## Front-end technologies:
 
   <li>React Js</li>
   <li>React styled components</li>
