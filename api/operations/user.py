@@ -3,7 +3,6 @@ from fastapi import HTTPException
 from schemas import user
 from models.userModel import User
 
-"""         COMPANY CODE SECTION          """
 
 
 def get_user_by_id(db: Session, user_id: int):
