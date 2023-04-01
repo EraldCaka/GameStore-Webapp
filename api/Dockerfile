@@ -23,10 +23,18 @@ RUN pip install --no-cache-dir --upgrade -r /api/requirements.txt
 
 COPY ./controllers /api/controllers
 
+COPY ./models /api/models
+
+COPY ./config /api/config
+
+COPY ./operations /api/operations
+
+COPY ./schemas /api/schemas
+
 # 
 
 
-CMD ["uvicorn", "controllers.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "controllers.mainController:app", "--host", "0.0.0.0", "--port", "80"]
 #cd task1
 #docker build -t api .  #build image
 #sudo lsof -i :80 #check if port 80 is free
