@@ -27,16 +27,6 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 def get_all_users(db: Session = Depends(get_db)):
     return userCrud.get_users(db)
 
-
-
-#post requests
-
-@router.post("/", response_model=userSchema.User)
-def create_user(user: userSchema.UserBase, db: Session = Depends(get_db)):
-    return userCrud.create_user(db, user)
-
-
-
 #put requests
 
 @router.put("/{user_id}", response_model=userSchema.User)

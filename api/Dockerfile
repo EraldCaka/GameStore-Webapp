@@ -43,7 +43,9 @@ COPY ./schemas/userdir /api/schemas/userdir
 
 COPY ./operations/validationdir /api/operations/validationdir
 
+COPY ./schemas/validationdir /api/schemas/validationdir
 
+COPY ./postman /api/postman
 # 
 
 

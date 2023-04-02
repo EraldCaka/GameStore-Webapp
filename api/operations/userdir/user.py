@@ -12,15 +12,7 @@ def get_user_by_id(db: Session, user_id: int):
 def get_users(db: Session):
     return db.query(User).all()
 
-# create user
-def create_user(db: Session, user: userSchema.UserCreate):
-    db_user = User(**user.dict())
-    if db.query(User).filter(User.name == user.name).first() is not None:
-        raise HTTPException(status_code=400, detail="User already exists")
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+
 
 # update user
 def update_user(db: Session, user: userSchema.UserUpdate, user_id: int):

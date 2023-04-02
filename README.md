@@ -2,21 +2,11 @@
 
 Senior Project for Empire State University
 
-## Front-end technologies:
+## Download Docker
 
-  <li>React Js</li>
-  <li>React styled components</li>
- 
-Back-end technologies:
--
+run the following command to run the api
 
-  <li>Python</li>
-  <li>FastAPI</li>
-  <li>Postgres</li>
-  <li>Postman</li>
-  
-Additional:
--
+```py
+docker-compose up --build
 
-  <li>Docker</li>
-  <li>kubernetes</li>
+```

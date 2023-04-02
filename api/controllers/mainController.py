@@ -10,3 +10,5 @@ app = FastAPI(title="GameStore API", version="0.1.0")
 
 #user controller router
 app.include_router(userController.router)
+app.include_router(loginController.router)
+app.include_router(registerController.router)
