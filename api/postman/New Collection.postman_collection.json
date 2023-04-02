@@ -67,9 +67,9 @@
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "updateUser",
       "request": {
-        "method": "GET",
+        "method": "PUT",
         "header": []
       },
       "response": []
