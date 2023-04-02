@@ -11,7 +11,7 @@ class User(Base):
     user_id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String, unique=True)
     password = Column(String)
-    email = Column(String, unique=True)
+    email = Column(String)
     type = Column(String)
 
 
