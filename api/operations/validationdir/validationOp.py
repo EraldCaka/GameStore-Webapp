@@ -22,3 +22,4 @@ def validate_user(db: Session, user: validationSchema.UserValidation):
     if db_user.password != user.password:
         raise HTTPException(status_code=401, detail="Incorrect password")
     return validationSchema.UserValidation(name=db_user.name, password=db_user.password)
+

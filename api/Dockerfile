@@ -47,6 +47,6 @@ COPY ./schemas/validationdir /api/schemas/validationdir
 
 COPY ./postman /api/postman
 # 
-
+COPY ./schemas/token /api/schemas/token
 
 CMD ["uvicorn", "controllers.mainController:app", "--host", "0.0.0.0", "--port", "80"]
