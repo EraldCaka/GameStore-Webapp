@@ -47,7 +47,7 @@ def login(user: validationSchema.UserValidation, db: Session = Depends(get_db),)
     access_token = create_jwt_token(name)
     token_cache["access_token"]=access_token
     token_cache["token_type"]=name
-    print(token_cache)
+    #print(token_cache)
     return token_cache
 
 @router.get("/token", response_model=tokenSchema.Token)
@@ -56,3 +56,9 @@ def get_user(token: str):
         raise HTTPException(status_code=401, detail="Invalid token")
     name = token_cache
     return name
+
+@router.get("/logout", response_model=tokenSchema.Token)
+def logout():
+    token_cache["access_token"]=""
+    token_cache["token_type"]=""
+    return token_cache
