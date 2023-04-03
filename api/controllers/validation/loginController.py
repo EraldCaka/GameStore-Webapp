@@ -9,7 +9,6 @@ from config.dependancies import get_db
 from schemas.token import tokenSchema
 from datetime import datetime, timedelta
 
-
 router = APIRouter(
     prefix="/login",
     tags=["Validation"],
@@ -17,14 +16,21 @@ router = APIRouter(
 )
 
 
-JWT_SECRET_KEY ="mysecretkey"
+token_cache={
+    "access_token": "", 
+    "token_type": ""
+}
+
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRATION_TIME_MINUTES = 30
 
 def create_jwt_token(name: str):
     expiration = datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION_TIME_MINUTES)
+    JWT_SECRET_KEY =name #creates a token from the name of the user
     payload = {"name": name, "exp": expiration}
+    
     token = jwt.encode(payload, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+
     return token
 
 def validate_user(db: Session, user: validationSchema.UserValidation):
@@ -36,7 +42,17 @@ def validate_user(db: Session, user: validationSchema.UserValidation):
     return db_user.name
 
 @router.post("/", response_model=tokenSchema.Token)
-def login(user: validationSchema.UserValidation, db: Session = Depends(get_db)):
+def login(user: validationSchema.UserValidation, db: Session = Depends(get_db),):
     name = validate_user(db, user)
     access_token = create_jwt_token(name)
-    return {"access_token": access_token, "token_type": "bearer"}
+    token_cache["access_token"]=access_token
+    token_cache["token_type"]=name
+    print(token_cache)
+    return token_cache
+
+@router.get("/token", response_model=tokenSchema.Token)
+def get_user(token: str):
+    if token not in token_cache["token_type"]:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    name = token_cache
+    return name
