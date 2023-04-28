@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-# get requests
+
 
 @router.get("/{game_id}", response_model=gamesSchema.Games)
 def get_game(game_id: int, db: Session = Depends(get_db)):
@@ -27,21 +27,21 @@ def get_all_games(db: Session = Depends(get_db)):
     return gamesCrud.get_games(db)
 
 
-# put requests
+
 
 @router.put("/{game_id}", response_model=gamesSchema.Games)
 def update_game(game_id: int, game: gamesSchema.GameUpdate, db: Session = Depends(get_db)):
     return gamesCrud.update_game(db, game_id, game)
 
 
-# delete requests
+
 
 @router.delete("/{game_id}", response_model=gamesSchema.Games)
 def delete_game(game_id: int, db: Session = Depends(get_db)):
     return gamesCrud.delete_game(db, game_id)
 
 
-# post requests
+
 
 @router.post("/", response_model=gamesSchema.Games)
 def create_game(game: gamesSchema.GameCreate, db: Session = Depends(get_db)):

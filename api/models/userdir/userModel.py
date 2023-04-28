@@ -19,7 +19,7 @@ class User(Base):
 class Library(Base):
     __tablename__ = "library"
     
-    id = Column(Integer, autoincrement=True, primary_key=True)
+    game_id = Column(Integer, autoincrement=True, primary_key=True)
     user_id = Column(Integer, ForeignKey(User.user_id))
     game_name = Column(String)
     
