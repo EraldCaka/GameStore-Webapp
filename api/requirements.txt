@@ -1,6 +1,6 @@
-fastapi==0.94.0
-pydantic==1.10.6
-uvicorn==0.21.0
+fastapi
+pydantic
+uvicorn
 psycopg2-binary
 sqlalchemy
 PyJWT
