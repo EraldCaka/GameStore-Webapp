@@ -6,7 +6,7 @@ Senior Project for Empire State University.
 
 run the following command to run the api
 
-```py
+```ps1
 docker-compose up --build
 
 ```
