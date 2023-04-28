@@ -25,4 +25,16 @@ class Library(Base):
     
     user = relationship("User", back_populates="library")
 
-###
+
+class Game(Base):
+    __tablename__ = "game"
+    
+    game_id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String)
+    price = Column(Float)
+    description = Column(String)
+    genre = Column(String)
+    rating = Column(Float)
+    release_date = Column(String)
+    publisher = Column(String)
+    image = Column(String)
