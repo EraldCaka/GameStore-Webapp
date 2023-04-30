@@ -13,7 +13,6 @@ router = APIRouter(
 
 
 
-#get requests
 
 @router.get("/{user_id}", response_model=userSchema.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
@@ -27,15 +26,19 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 def get_all_users(db: Session = Depends(get_db)):
     return userCrud.get_users(db)
 
-#put requests
+
 
 @router.put("/{user_id}", response_model=userSchema.User)
 def update_user(user_id: int, user: userSchema.UserUpdate, db: Session = Depends(get_db)):
     return userCrud.update_user(db, user, user_id)
 
 
-#delete requests
 
 @router.delete("/{user_id}", response_model=userSchema.User)
 def delete_user(user_id: int, db: Session = Depends(get_db)):
     return userCrud.delete_user(db, user_id)
+
+
+@router.get("/search/{search}", response_model=List[userSchema.User])
+def search_users(search: str, db: Session = Depends(get_db)):
+    return userCrud.search_users(db, search)

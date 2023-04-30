@@ -14,7 +14,7 @@ class User(Base):
     email = Column(String)
     type = Column(String)
 
-    library = relationship("Library", back_populates="user")
+    library = relationship("Library", back_populates="user", cascade="all, delete")
 
 class Library(Base):
     __tablename__ = "library"

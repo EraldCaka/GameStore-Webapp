@@ -46,3 +46,13 @@ def delete_game(game_id: int, db: Session = Depends(get_db)):
 @router.post("/", response_model=gamesSchema.Games)
 def create_game(game: gamesSchema.GameCreate, db: Session = Depends(get_db)):
     return gamesCrud.create_game(db, game)
+
+
+@router.get("/search/{search}", response_model=List[gamesSchema.Games])
+def search_games(search: str, db: Session = Depends(get_db)):
+    return gamesCrud.search_games(db, search)
+
+
+@router.get("/search/genre/{genre}", response_model=List[gamesSchema.Games])
+def search_games_by_genre(genre: str, db: Session = Depends(get_db)):
+    return gamesCrud.search_games_by_genre(db, genre)

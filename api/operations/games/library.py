@@ -53,3 +53,8 @@ def delete_game(db: Session, game_id: int):
 
 def get_games_by_user_id(db: Session, user_id: int):
     return db.query(Library).filter(Library.user_id == user_id).all()
+
+
+def search_games(db: Session, search: str):
+    return db.query(Library).filter(Library.game_name.like(f"%{search}%")).all()
+

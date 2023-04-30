@@ -48,3 +48,9 @@ def create_game(game: librarySchema.ItemCreate, db: Session = Depends(get_db)):
 @router.get("/user/{user_id}", response_model=List[librarySchema.Library])
 def get_all_games_by_user_id(user_id: int, db: Session = Depends(get_db)):
     return libraryCrud.get_games_by_user_id(db, user_id)
+
+
+
+@router.get("/search/{search}", response_model=List[librarySchema.Library])
+def search_games(search: str, db: Session = Depends(get_db)):
+    return libraryCrud.search_games(db, search)

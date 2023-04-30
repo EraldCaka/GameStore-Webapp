@@ -43,3 +43,8 @@ def delete_user(db: Session, user_id: int):
     db.delete(db_user)
     db.commit()
     return db_user
+
+
+def search_users(db: Session, search: str):
+    return db.query(User).filter(User.name.like(f"%{search}%")).all()
+

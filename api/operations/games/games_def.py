@@ -45,3 +45,12 @@ def delete_game(db: Session, game_id: int):
     db.delete(db_game)
     db.commit()
     return db_game
+
+
+def search_games(db: Session, search: str):
+    return db.query(Game).filter(Game.name.like(f"%{search}%")).all()
+
+
+
+def search_games_by_genre(db: Session, search: str):
+    return db.query(Game).filter(Game.genre.like(f"%{search}%")).all()
