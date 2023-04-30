@@ -23,6 +23,8 @@ run the following command in your terminal to run the reactApp
 npm start
 ```
 
+![image](https://user-images.githubusercontent.com/96385473/235374030-2b310ef1-fba7-4fd0-ba7c-8178db862514.png)
+
 ## Preview
 
 <li>Landing</li>
