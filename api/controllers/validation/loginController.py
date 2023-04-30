@@ -50,7 +50,7 @@ def login(user: validationSchema.UserValidation, db: Session = Depends(get_db),)
     #print(token_cache)
     return token_cache
 
-@router.get("/token", response_model=tokenSchema.Token)
+@router.get("/token/verification", response_model=tokenSchema.Token)
 def get_user(token: str):
     if token not in token_cache["token_type"]:
         raise HTTPException(status_code=401, detail="Invalid token")
@@ -62,3 +62,9 @@ def logout():
     token_cache["access_token"]=""
     token_cache["token_type"]=""
     return token_cache
+
+
+@router.get("/token/user", response_model=tokenSchema.Token)
+def get_user():
+    return token_cache
+    
