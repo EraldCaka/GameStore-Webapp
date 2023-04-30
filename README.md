@@ -1,7 +1,6 @@
 # GameStore-Webapp
 
-Senior Project for Empire State University.
-Status incomplete
+Senior Project and Software Engineering Project for Empire State University.
 
 ## Download Docker
 
