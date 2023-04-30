@@ -29,15 +29,15 @@ npm start
 
 <li>Landing</li>
 
-![image](https://user-images.githubusercontent.com/96385473/235370321-1896a9e4-3cf5-4cfd-a511-2b3d5ea63f08.png)
+![image](https://user-images.githubusercontent.com/96385473/235378858-5fd5ad29-6ec3-4ac8-80e9-2d79ec21a9e2.png)
 
 <li>Register
 
-![image](https://user-images.githubusercontent.com/96385473/235370386-5ce99dea-e95c-4db1-b03c-c1227fc2e9ee.png)
+![image](https://user-images.githubusercontent.com/96385473/235378866-52be24fc-3a3f-41f2-b625-c14e981d818d.png)
 
 <li>Login
 
-![image](https://user-images.githubusercontent.com/96385473/235370410-84c1125c-1ff0-46aa-8e97-a8ba8598d220.png)
+![image](https://user-images.githubusercontent.com/96385473/235378928-6f4d2d61-04cf-425d-a039-0b6aff1428c7.png)
 
 <li>Wrong Route
 
