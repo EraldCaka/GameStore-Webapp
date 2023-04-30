@@ -1,4 +1,4 @@
-import logo from "../assets/images/loti.png";
+import logo from "../assets/images/logo/gameLogo.svg";
 
 const Logo = () => {
   return (

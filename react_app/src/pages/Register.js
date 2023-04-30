@@ -35,6 +35,7 @@ const Register = () => {
       const data = response.data;
 
       console.log("login api test", data);
+      //response of the login api
     } else {
       register = {
         name: values.name,
