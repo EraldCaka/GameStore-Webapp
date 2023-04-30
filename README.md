@@ -23,6 +23,22 @@ run the following command in your terminal to run the reactApp
 npm start
 ```
 
+## Preview
+
+<li>Landing</li>
+
+![image](https://user-images.githubusercontent.com/96385473/235370321-1896a9e4-3cf5-4cfd-a511-2b3d5ea63f08.png)
+
+<li>Register
+
+![image](https://user-images.githubusercontent.com/96385473/235370386-5ce99dea-e95c-4db1-b03c-c1227fc2e9ee.png)
+
+<li>Login
+
+![image](https://user-images.githubusercontent.com/96385473/235370410-84c1125c-1ff0-46aa-8e97-a8ba8598d220.png)
+
+<li>404
+
 ## Javascript Libraries
 
 <li>react.js(Framework)</li>
