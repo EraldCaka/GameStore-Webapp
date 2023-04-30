@@ -37,7 +37,9 @@ npm start
 
 ![image](https://user-images.githubusercontent.com/96385473/235370410-84c1125c-1ff0-46aa-8e97-a8ba8598d220.png)
 
-<li>404
+<li>Wrong Route
+
+![image](https://user-images.githubusercontent.com/96385473/235370483-e2e667c9-43ae-42d1-989d-20635f19b87b.png)
 
 ## Javascript Libraries
 
