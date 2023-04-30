@@ -5,6 +5,7 @@ Senior Project and Software Engineering Project for Empire State University.
 ## Download Docker
 
 <a href="https://www.docker.com/products/docker-desktop/">Latest Docker Version</a>
+
 run the following command in your terminal to run the api
 
 ```ps1
