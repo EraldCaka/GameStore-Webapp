@@ -4,6 +4,7 @@ import Wrapper from "../assets/wrappers/RegisterPage";
 import { useAppContext } from "../context/appContext";
 import { DISPLAY_ALERT } from "../context/actions";
 import { apiCall } from "../axios/axios";
+import { Navigate, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const initialState = {
   name: "",
@@ -15,6 +16,7 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
   const { isLoading, showAlert, displayAlert } = useAppContext();
+  const navigate = useNavigate(); // Initialize useNavigate
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
@@ -34,8 +36,15 @@ const Register = () => {
       const response = await apiCall("/login").create(login);
       const data = response.data;
 
-      console.log("login api test", data);
-      //response of the login api
+      // Redirect the user to UserHomePage.js
+      console.log(data);
+      if (data.token_type === values.name) {
+        console.log("login success");
+        navigate("/profile");
+      } else {
+        console.log("login failed");
+        navigate("/register");
+      }
     } else {
       register = {
         name: values.name,
@@ -49,8 +58,15 @@ const Register = () => {
       console.log("register api test", data);
     }
 
-    login = {};
-    register = {};
+    login = {
+      name: "",
+      password: "",
+    };
+    register = {
+      name: "",
+      email: "",
+      password: "",
+    };
     const { name, email, password, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
       displayAlert();
@@ -104,4 +120,5 @@ const Register = () => {
     </div>
   );
 };
+
 export default Register;

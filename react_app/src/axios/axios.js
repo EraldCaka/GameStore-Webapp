@@ -6,6 +6,8 @@ export const apiCall = (endpoint) => {
   let url = BASE_URL + endpoint + "/";
   return {
     fetchById: (id) => axios.get(url + id),
+    fetchToken: () => axios.get(url),
+    fetchByName: (name) => axios.get(url + name),
     fetchAll: () => axios.get(url),
     create: (inserted) => axios.post(url, inserted),
     put: (updated, id) => axios.put(url + id, updated),
