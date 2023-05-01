@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.nav`
   height: var(--nav-height);
@@ -19,12 +19,16 @@ const Wrapper = styled.nav`
   }
   .toggle-btn {
     background: transparent;
-    border-color: transparent;
+    border: none;
     font-size: 1.75rem;
     color: var(--primary-500);
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: 0.5rem;
+    outline: red dashed 1px;
   }
   background: var(--white);
   .btn-container {
@@ -80,5 +84,5 @@ const Wrapper = styled.nav`
       display: block;
     }
   }
-`
-export default Wrapper
+`;
+export default Wrapper;

@@ -26,7 +26,7 @@ const Wrapper = styled.section`
     text-align: center;
   }
 
-  .btn {
+  .btn1 {
     margin-top: 1rem;
   }
 

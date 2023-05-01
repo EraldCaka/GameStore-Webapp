@@ -26,7 +26,7 @@ const Landing = () => {
             your next favorite game!
           </p>
 
-          <Link to="/register" className="btn btn-hero">
+          <Link to="/register" className="btn1 btn-hero1">
             Login/Register
           </Link>
         </div>

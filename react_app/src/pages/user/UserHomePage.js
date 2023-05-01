@@ -1,8 +1,8 @@
 import { apiCall } from "../../axios/axios";
-import { Navigate, useNavigate } from "react-router-dom"; // Import useNavigate
-
+import { Navigate, useNavigate } from "react-router-dom";
+import { NavbarLine } from "../style/";
 const UserHomePage = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   let token = {
     token: "",
     token_type: "user",
@@ -20,6 +20,7 @@ const UserHomePage = () => {
 
     if (token.token !== "") {
       console.log("token verified");
+      return;
     } else {
       console.log("token not verified");
       navigate("/register");
@@ -29,6 +30,7 @@ const UserHomePage = () => {
 
   return (
     <div>
+      <NavbarLine />
       <h1>UserHomePage</h1>
     </div>
   );

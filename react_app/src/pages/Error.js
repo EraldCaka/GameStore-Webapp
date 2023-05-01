@@ -10,7 +10,7 @@ const Error = () => {
         <h3>Ohh! page not found</h3>
         <p>We can't seem to find the page you're looking for</p>
 
-        <Link to="/">back home</Link>
+        <Link to="/homepage">back home</Link>
       </div>
     </Wrapper>
   );

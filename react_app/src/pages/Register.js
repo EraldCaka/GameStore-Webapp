@@ -4,7 +4,7 @@ import Wrapper from "../assets/wrappers/RegisterPage";
 import { useAppContext } from "../context/appContext";
 import { DISPLAY_ALERT } from "../context/actions";
 import { apiCall } from "../axios/axios";
-import { Navigate, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Navigate, useNavigate } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -16,7 +16,21 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
   const { isLoading, showAlert, displayAlert } = useAppContext();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const verifyToken = async (e) => {
+    const response = await apiCall("/login/token/user").fetchToken();
+    const data = response.data;
+    console.log(data);
+
+    if (data.access_token === "") {
+      console.log("Not Logged in");
+      return;
+    } else {
+      console.log("Already Logged in");
+      navigate("/homepage");
+    }
+  };
+  verifyToken();
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
@@ -40,7 +54,7 @@ const Register = () => {
       console.log(data);
       if (data.token_type === values.name) {
         console.log("login success");
-        navigate("/profile");
+        navigate("/homepage");
       } else {
         console.log("login failed");
         navigate("/register");
@@ -106,7 +120,7 @@ const Register = () => {
             handleChange={handleChange}
           />
           {/* password input*/}
-          <button type="submit" className="btn btn-block" onClick={onSubmit}>
+          <button type="submit" className="btn1 btn-block1" onClick={onSubmit}>
             submit
           </button>
           <p>

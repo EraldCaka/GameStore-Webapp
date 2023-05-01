@@ -9,6 +9,7 @@ export const apiCall = (endpoint) => {
     fetchToken: () => axios.get(url),
     fetchByName: (name) => axios.get(url + name),
     fetchAll: () => axios.get(url),
+    logout: () => axios.get(url),
     create: (inserted) => axios.post(url, inserted),
     put: (updated, id) => axios.put(url + id, updated),
     deleted: (id) => axios.put(url + id),
