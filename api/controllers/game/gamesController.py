@@ -1,9 +1,11 @@
-from fastapi import Depends, HTTPException,APIRouter
+from fastapi import Depends, HTTPException,APIRouter, File, UploadFile
 from sqlalchemy.orm import Session
+import base64
 from operations.games import games_def as gamesCrud
 from schemas.games import games as gamesSchema
 from config.dependancies import get_db
 from typing import List
+from models.userdir import userModel as gameModel
 
 router = APIRouter(
     prefix="/games",
@@ -56,3 +58,8 @@ def search_games(search: str, db: Session = Depends(get_db)):
 @router.get("/search/genre/{genre}", response_model=List[gamesSchema.Games])
 def search_games_by_genre(genre: str, db: Session = Depends(get_db)):
     return gamesCrud.search_games_by_genre(db, genre)
+
+@router.post("/images", response_model=gamesSchema.GameImage)
+def create_game_image(name: str, image: UploadFile = File(...), db: Session = Depends(get_db)):
+    game_image = gamesSchema.GameImageCreate(name=name, image=image.file.read())
+    return gamesCrud.create_game_image(db, game_image)

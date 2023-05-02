@@ -26,7 +26,7 @@ const Store = () => {
     <div>
       <Wrapper>
         <NavbarLine />
-        <h1>Store</h1>
+        <h1></h1>
         <div className="our-games">
           {games.map((game) => (
             <Game

@@ -10,7 +10,7 @@ class GameBase(BaseModel):
     rating: float
     release_date: str
     publisher: str
-    image: str
+
 
 class GameCreate(GameBase):
     pass
@@ -24,11 +24,24 @@ class GameUpdate(GameBase):
     rating: Optional[float] = None
     release_date: Optional[str] = None
     publisher: Optional[str] = None
-    image: Optional[str] = None
+  
 
 
 class Games(GameBase):
     game_id: int
     #incremental id for each game
+    class Config:
+        orm_mode = True
+
+class GameImageBase(BaseModel):
+     name: str
+     image: Optional[bytes]
+
+class GameImageCreate(GameImageBase):
+    pass
+
+class GameImage(GameImageBase):
+    id: int
+
     class Config:
         orm_mode = True

@@ -3,7 +3,7 @@ from fastapi import HTTPException
 from typing import List
 from schemas.games import games as gamesSchema
 from models.userdir.userModel import Game
-
+from models.userdir.userModel import GameImage
 
 def get_game_by_id(db: Session, game_id: int):
     return db.query(Game).filter(Game.game_id == game_id).first()
@@ -23,6 +23,16 @@ def create_game(db: Session, game: gamesSchema.GameCreate):
     db.refresh(db_game)
     return db_game
 
+def create_game_image(db: Session, game_image_data: gamesSchema.GameImageCreate):
+    db_game_image = db.query(GameImage).filter_by(name=game_image_data.name).first()
+    if db_game_image:
+        raise HTTPException(status_code=400, detail="Game image with this name already exists")
+    
+    db_game_image = GameImage(**game_image_data.dict())
+    db.add(db_game_image)
+    db.commit()
+    db.refresh(db_game_image)
+    return db_game_image
 
 def update_game(db: Session, game_id: int, game: gamesSchema.GameUpdate):
     db_game = db.query(Game).filter(Game.game_id == game_id).first()
@@ -54,3 +64,5 @@ def search_games(db: Session, search: str):
 
 def search_games_by_genre(db: Session, search: str):
     return db.query(Game).filter(Game.genre.like(f"%{search}%")).all()
+
+

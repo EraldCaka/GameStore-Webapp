@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String,LargeBinary
 from sqlalchemy.orm import relationship
 
 from config.database import Base
@@ -30,11 +30,23 @@ class Game(Base):
     __tablename__ = "game"
     
     game_id = Column(Integer, autoincrement=True, primary_key=True)
-    name = Column(String)
+    name = Column(String, unique=True)
     price = Column(Float)
     description = Column(String)
     genre = Column(String)
     rating = Column(Float)
     release_date = Column(String)
     publisher = Column(String)
-    image = Column(String)
+
+
+    game_image = relationship("GameImage", back_populates="game",uselist=False, cascade="all, delete")
+    
+
+
+class GameImage(Base):
+    __tablename__ = "game_image"
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String, ForeignKey(Game.name))
+    image = Column(LargeBinary)
+    
+    game = relationship("Game", back_populates="game_image")
