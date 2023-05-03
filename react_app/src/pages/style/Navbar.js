@@ -5,8 +5,33 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { apiCall } from "../../axios/axios";
-
+import { Navigate, useNavigate } from "react-router-dom";
 function NavbarLine() {
+  const navigate = useNavigate();
+  let token = {
+    token: "",
+    token_type: "user",
+    name: "",
+  };
+  const verifyToken = async () => {
+    const response = await apiCall("/login/token/user").fetchToken();
+    const data = response.data;
+    console.log(data);
+    let token = {
+      token: data.access_token,
+      token_type: "user",
+      name: data.token_type,
+    };
+
+    if (token.token !== "") {
+      console.log("token verified");
+      return;
+    } else {
+      console.log("token not verified");
+      navigate("/register");
+    }
+  };
+  verifyToken();
   const Logout = async () => {
     const response = await apiCall("/login/logout").logout();
     const data = response.data;
