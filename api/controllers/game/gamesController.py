@@ -6,6 +6,7 @@ from schemas.games import games as gamesSchema
 from config.dependancies import get_db
 from typing import List
 from models.userdir import userModel as gameModel
+import base64
 
 router = APIRouter(
     prefix="/games",
@@ -62,4 +63,7 @@ def search_games_by_genre(genre: str, db: Session = Depends(get_db)):
 @router.post("/images", response_model=gamesSchema.GameImage)
 def create_game_image(name: str, image: UploadFile = File(...), db: Session = Depends(get_db)):
     game_image = gamesSchema.GameImageCreate(name=name, image=image.file.read())
-    return gamesCrud.create_game_image(db, game_image)
+    db_game_image = gamesCrud.create_game_image(db, game_image)
+    db_game_image.image = base64.b64encode(db_game_image.image).decode('utf-8')
+    
+    return db_game_image
