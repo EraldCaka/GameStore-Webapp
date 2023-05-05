@@ -13,6 +13,55 @@ const Wrapper1 = styled.div`
   justify-content: center;
   align-items: center;
   height: 150px;
+  &:hover img {
+    filter: blur(8px);
+    -webkit-filter: blur(1.5px);
+  }
+  cursor: pointer;
+`;
+
+const GameCard = styled(Card)`
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+`;
+
+const GameTitle = styled(Card.Title)`
+  font-weight: bold;
+  font-size: 1.2rem;
+`;
+
+const GameDescription = styled(Card.Text)`
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const GameText = styled(Card.Text)`
+  font-size: 0.8rem;
+  color: #a0a0a0;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  .btn1 {
+    cursor: pointer;
+    color: var(--white);
+    background: var(--primary-500);
+    border: transparent;
+    border-radius: var(--borderRadius);
+    letter-spacing: var(--letterSpacing);
+    padding: 0.375rem 0.75rem;
+    box-shadow: var(--shadow-2);
+    transition: var(--transition);
+    text-transform: capitalize;
+    display: inline-block;
+  }
+  .btn1:hover {
+    background: var(--primary-700);
+    box-shadow: var(--shadow-3);
+  }
 `;
 
 const Game = ({
@@ -47,13 +96,14 @@ const Game = ({
 
   return (
     <Wrapper>
-      <Card>
+      <GameCard>
         <Wrapper1>
           {imageUrl ? (
             <Card.Img
               variant="top"
               src={imageUrl}
               alt={name}
+              className="img-db"
               onLoad={handleImageLoad}
             />
           ) : (
@@ -61,16 +111,20 @@ const Game = ({
           )}
         </Wrapper1>
         <Card.Body>
-          <Card.Title>{name}</Card.Title>
-          <Card.Text>{description}</Card.Text>
-          <Card.Text>{genre}</Card.Text>
-          <Card.Text>{rating}</Card.Text>
-          <Card.Text>{release_date}</Card.Text>
-          <Card.Text>{publisher}</Card.Text>
-          <Card.Text>{price}</Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <GameTitle>{name}</GameTitle>
+          <GameDescription>{description}</GameDescription>
+          <GameText>genre: {genre}</GameText>
+          <GameText>rating: {rating}</GameText>
+          <GameText>release date: {release_date}</GameText>
+          <GameText>publisher: {publisher}</GameText>
+          <GameText>price: {price}$</GameText>
+          <ButtonWrapper>
+            <Button variant="primary" className="btn1">
+              Purchase
+            </Button>
+          </ButtonWrapper>
         </Card.Body>
-      </Card>
+      </GameCard>
     </Wrapper>
   );
 };
