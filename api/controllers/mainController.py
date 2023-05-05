@@ -9,7 +9,7 @@ from starlette import status
 
 userModel.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="GameStore API", version="0.1.0")
+app = FastAPI(title="GameStore API", version="0.1.2")
 origins = [
     "http://localhost:3000"
 ]
