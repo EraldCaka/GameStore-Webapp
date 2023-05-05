@@ -44,6 +44,7 @@ npm start
 <li>react-router-dom</li>
 <li>axios</li>
 <li>styled-components</li>
+<li>atob</li>
 
 ## Python Libraries
 
