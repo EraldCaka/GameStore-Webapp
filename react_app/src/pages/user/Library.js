@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavbarLine } from "../style/";
-import Game from "../store/Game";
+import LibraryCard from "../store/Library";
 import { apiCall } from "../../axios/axios";
 import styled from "styled-components";
 
@@ -43,7 +43,6 @@ const Library = () => {
         return {
           image: image,
           name: game.game_name,
-          price: price,
           description: description,
           genre: genre,
           rating: rating,
@@ -70,11 +69,10 @@ const Library = () => {
 
         <div className="our-games">
           {games.map((game, index) => (
-            <Game
+            <LibraryCard
               key={index}
               image={game.image}
               name={game.name}
-              price={game.price}
               description={game.description}
               genre={game.genre}
               rating={game.rating}

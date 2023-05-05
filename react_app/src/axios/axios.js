@@ -12,7 +12,7 @@ export const apiCall = (endpoint) => {
     logout: () => axios.get(url),
     create: (inserted) => axios.post(url, inserted),
     put: (updated, id) => axios.put(url + id, updated),
-    deleted: (id) => axios.put(url + id),
+    deleted: (id) => axios.delete(url + id),
     complexQuery: (request, method) => {
       let args = "";
       request.forEach((arg) => {
