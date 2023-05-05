@@ -8,12 +8,15 @@ from typing import List
 from models.userdir import userModel as gameModel
 import base64
 
+
+
+
+
 router = APIRouter(
     prefix="/games",
     tags=["Games"],
     responses={404: {"description": "Game not found"}}
 )
-
 
 
 
@@ -74,5 +77,5 @@ def get_game_image_by_name(name: str, db: Session = Depends(get_db)):
     game_image = gamesCrud.get_game_image_by_name(db, name)
     if not game_image:
         raise HTTPException(status_code=404, detail="Game image not found")
-
-    return gamesSchema.GameImage(id=game_image.id, name=game_image.name, image=game_image.image)
+    game_image.image = base64.b64encode(game_image.image).decode('utf-8')
+    return game_image
