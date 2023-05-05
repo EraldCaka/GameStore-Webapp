@@ -46,6 +46,7 @@ def delete_game(game_id: int, db: Session = Depends(get_db)):
 
 
 
+
 @router.post("/", response_model=gamesSchema.Games)
 def create_game(game: gamesSchema.GameCreate, db: Session = Depends(get_db)):
     return gamesCrud.create_game(db, game)
@@ -60,10 +61,18 @@ def search_games(search: str, db: Session = Depends(get_db)):
 def search_games_by_genre(genre: str, db: Session = Depends(get_db)):
     return gamesCrud.search_games_by_genre(db, genre)
 
-@router.post("/images", response_model=gamesSchema.GameImage)
+@router.post("/images/{name}", response_model=gamesSchema.GameImage)
 def create_game_image(name: str, image: UploadFile = File(...), db: Session = Depends(get_db)):
     game_image = gamesSchema.GameImageCreate(name=name, image=image.file.read())
     db_game_image = gamesCrud.create_game_image(db, game_image)
     db_game_image.image = base64.b64encode(db_game_image.image).decode('utf-8')
     
     return db_game_image
+
+@router.get("/image/{name}", response_model=gamesSchema.GameImage)
+def get_game_image_by_name(name: str, db: Session = Depends(get_db)):
+    game_image = gamesCrud.get_game_image_by_name(db, name)
+    if not game_image:
+        raise HTTPException(status_code=404, detail="Game image not found")
+
+    return gamesSchema.GameImage(id=game_image.id, name=game_image.name, image=game_image.image)
