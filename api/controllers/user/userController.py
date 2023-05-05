@@ -1,10 +1,11 @@
-from fastapi import Depends, HTTPException,APIRouter
+from fastapi import Depends, HTTPException,APIRouter, File, UploadFile
 from sqlalchemy.orm import Session
 from operations.userdir import user as userCrud
 from schemas.userdir import user as userSchema
 from config.dependancies import get_db
 from typing import List
-
+import base64
+from typing import List
 router = APIRouter(
     prefix="/users",
     tags=["Users"],
@@ -40,5 +41,14 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/search/{search}", response_model=List[userSchema.User])
-def search_users(search: str, db: Session = Depends(get_db)):
+def search_users(search: str, UploadFile = File(...), db: Session = Depends(get_db)):
     return userCrud.search_users(db, search)
+
+
+@router.post("/images/{name}", response_model=userSchema.UserImage)
+def create_user_image(name: str, image: UploadFile = File(...), db: Session = Depends(get_db)):
+    user_image = userSchema.UserImageCreate(name=name, image=image.file.read())
+    db_user_image = userCrud.create_user_image(db, user_image)
+    db_user_image.image = base64.b64encode(db_user_image.image).decode('utf-8')
+    
+    return db_user_image

@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from schemas.userdir import user as userSchema
 from models.userdir.userModel import User
+from models.userdir.userModel import UserImage
 from typing import List
 
 #get user by id
@@ -48,3 +49,12 @@ def delete_user(db: Session, user_id: int):
 def search_users(db: Session, search: str):
     return db.query(User).filter(User.name.like(f"%{search}%")).all()
 
+def create_user_image(db: Session, user_image_data: userSchema.UserImageCreate):
+    db_user_image = db.query(UserImage).filter_by(name=user_image_data.name).first()
+    if db_user_image:
+        raise HTTPException(status_code=400, detail="User image with this name already exists")
+    db_user_image = UserImage(**user_image_data.dict())
+    db.add(db_user_image)
+    db.commit()
+    db.refresh(db_user_image)
+    return db_user_image

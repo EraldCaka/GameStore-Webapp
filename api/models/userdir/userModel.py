@@ -15,6 +15,15 @@ class User(Base):
     type = Column(String)
 
     library = relationship("Library", back_populates="user", cascade="all, delete")
+    user_image = relationship("UserImage", back_populates="user",uselist=False, cascade="all, delete")
+
+class UserImage(Base):
+    __tablename__ = "user_image"
+    user_id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String, ForeignKey(User.name))
+    image = Column(LargeBinary)
+
+    user = relationship("User", back_populates="user_image")
 
 
 

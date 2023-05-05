@@ -25,3 +25,23 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class UserImageBase(BaseModel):
+    name: str
+    image: Optional[bytes]
+
+
+class UserImageCreate(UserImageBase):
+    pass
+
+
+
+
+
+
+class UserImage(UserImageBase):
+    user_id: int
+
+    class Config:
+        orm_mode = True
