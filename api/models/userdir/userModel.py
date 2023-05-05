@@ -16,14 +16,7 @@ class User(Base):
 
     library = relationship("Library", back_populates="user", cascade="all, delete")
 
-class Library(Base):
-    __tablename__ = "library"
-    
-    game_id = Column(Integer, autoincrement=True, primary_key=True)
-    user_id = Column(Integer, ForeignKey(User.user_id))
-    game_name = Column(String)
-    
-    user = relationship("User", back_populates="library")
+
 
 
 class Game(Base):
@@ -40,7 +33,18 @@ class Game(Base):
 
 
     game_image = relationship("GameImage", back_populates="game",uselist=False, cascade="all, delete")
+    library = relationship("Library", back_populates="game", cascade="all, delete")
     
+
+class Library(Base):
+    __tablename__ = "library"
+    
+    game_id = Column(Integer, autoincrement=True, primary_key=True)
+    user_id = Column(Integer, ForeignKey(User.user_id))
+    game_name = Column(String, ForeignKey(Game.name))
+    
+    user = relationship("User", back_populates="library")
+    game = relationship("Game", back_populates="library")
 
 
 class GameImage(Base):

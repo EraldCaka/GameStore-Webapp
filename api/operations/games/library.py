@@ -18,8 +18,15 @@ def get_games(db: Session):
 
 def create_game(db: Session, game: librarySchema.ItemCreate):
     db_game = Library(**game.dict())
-    if db.query(Library).filter(Library.game_name == game.game_name).first() is not None:
+    if db.query(Library).filter(Library.user_id == game.user_id, Library.game_name == game.game_name).first():
+        print(game.user_id,"inside")
+        print(db.query(Library).filter(Library.user_id== game.user_id).first())
+        print(db.query(Library).filter(Library.game_name == game.game_name).first() and db.query(Library).filter(Library.user_id== game.user_id).first())
+        print(db.query(Library).filter(Library.user_id == game.user_id).first().user_id)
+        print(db.query(Library).filter(Library.user_id == game.user_id).first().game_name)
         raise HTTPException(status_code=400, detail="Game already exists")
+    
+    print(game.user_id)
     db.add(db_game)
     db.commit()
     db.refresh(db_game)

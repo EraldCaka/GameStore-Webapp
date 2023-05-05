@@ -54,6 +54,7 @@ const Register = () => {
       console.log(data);
       if (data.token_type === values.name) {
         console.log("login success");
+        localStorage.setItem("token", data.token_type);
         navigate("/homepage");
       } else {
         console.log("login failed");

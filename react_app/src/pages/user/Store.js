@@ -23,7 +23,7 @@ const Store = () => {
           game.name
         );
         const image = imageResponse.data.image;
-        console.log(image);
+        // console.log(image);
         return {
           ...game,
           image: image,

@@ -16,7 +16,7 @@ function NavbarLine() {
   const verifyToken = async () => {
     const response = await apiCall("/login/token/user").fetchToken();
     const data = response.data;
-    console.log(data);
+    // console.log(data);
     let token = {
       token: data.access_token,
       token_type: "user",
@@ -24,10 +24,11 @@ function NavbarLine() {
     };
 
     if (token.token !== "") {
-      console.log("token verified");
+      // console.log("token verified");
       return;
     } else {
-      console.log("token not verified");
+      //console.log("token not verified");
+      localStorage.setItem("token", "");
       navigate("/register");
     }
   };
@@ -35,6 +36,7 @@ function NavbarLine() {
   const Logout = async () => {
     const response = await apiCall("/login/logout").logout();
     const data = response.data;
+    localStorage.setItem("token", "");
     console.log(data);
   };
 
