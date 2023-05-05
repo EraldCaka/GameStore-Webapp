@@ -2,6 +2,7 @@ import main from "../assets/images/landing_zelda.png";
 import Wrapper from "../assets/wrappers/Testing";
 import { Logo } from "../components";
 import { Link } from "react-router-dom";
+
 const Landing = () => {
   return (
     <Wrapper>

@@ -2,6 +2,8 @@
 
 Senior Project and Software Engineering Project for Empire State University.
 
+(ongoing project almost half done)
+
 ## Download Docker
 
 <a href="https://www.docker.com/products/docker-desktop/">Latest Docker Version</a>
