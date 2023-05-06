@@ -41,7 +41,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/search/{search}", response_model=List[userSchema.User])
-def search_users(search: str, UploadFile = File(...), db: Session = Depends(get_db)):
+def search_users(search: str,db: Session = Depends(get_db)):
     return userCrud.search_users(db, search)
 
 
@@ -52,3 +52,12 @@ def create_user_image(name: str, image: UploadFile = File(...), db: Session = De
     db_user_image.image = base64.b64encode(db_user_image.image).decode('utf-8')
     
     return db_user_image
+
+@router.get("/images/{name}", response_model=userSchema.UserImage)
+def get_user_image_by_name(name: str, db: Session = Depends(get_db)):
+    user_image = userCrud.get_user_image_by_name(db, name)
+    if not user_image:
+        raise HTTPException(status_code=404, detail="Game image not found")
+    
+    user_image.image = base64.b64encode(user_image.image).decode('utf-8')
+    return user_image

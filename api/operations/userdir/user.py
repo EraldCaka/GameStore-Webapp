@@ -58,3 +58,12 @@ def create_user_image(db: Session, user_image_data: userSchema.UserImageCreate):
     db.commit()
     db.refresh(db_user_image)
     return db_user_image
+
+def get_user_image_by_name(db: Session, name: str):
+    db_user_image = db.query(UserImage).filter_by(name=name).first()
+    if db_user_image is None:
+        raise HTTPException(status_code=404, detail="User image not found")
+
+    image_data = db_user_image.image
+    
+    return userSchema.UserImage(name=db_user_image.name, image=image_data , user_id = db_user_image.user_id)

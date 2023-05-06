@@ -11,6 +11,7 @@ export const apiCall = (endpoint) => {
     fetchAll: () => axios.get(url),
     logout: () => axios.get(url),
     create: (inserted) => axios.post(url, inserted),
+    createbyname: (name, inserted) => axios.post(url + name, inserted),
     put: (updated, id) => axios.put(url + id, updated),
     deleted: (id) => axios.delete(url + id),
     complexQuery: (request, method) => {

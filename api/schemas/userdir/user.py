@@ -36,10 +36,6 @@ class UserImageCreate(UserImageBase):
     pass
 
 
-
-
-
-
 class UserImage(UserImageBase):
     user_id: int
 
