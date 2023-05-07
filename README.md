@@ -39,6 +39,8 @@ npm start
 
 ![image](https://user-images.githubusercontent.com/96385473/236502500-87772010-d34f-49de-9cd3-ff793ed09bfb.png)
 
+![image](https://user-images.githubusercontent.com/96385473/236695498-dcd7c7b2-590c-4c64-8bd6-cbbb6100deac.png)
+
 ## Javascript Libraries
 
 <li>react.js(Framework)</li>
@@ -56,6 +58,7 @@ npm start
 <li>psycopg2-binary</li>
 <li>sqlalchemy</li>
 <li>PyJWT</li>
+<li>requests<li>
 
 ## Database
 

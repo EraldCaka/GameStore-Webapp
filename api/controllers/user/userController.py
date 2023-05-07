@@ -1,11 +1,13 @@
-from fastapi import Depends, HTTPException,APIRouter, File, UploadFile,Request
+from fastapi import Depends, HTTPException,APIRouter, File, UploadFile,Request,Form
 from sqlalchemy.orm import Session
 from operations.userdir import user as userCrud
 from schemas.userdir import user as userSchema
 from config.dependancies import get_db
 from typing import List
+from models.userdir.userModel import UserImage
 import base64
-from typing import List
+import requests
+
 router = APIRouter(
     prefix="/users",
     tags=["Users"],
@@ -64,6 +66,20 @@ def create_user_image(name: str, image: UploadFile = File(...), db: Session = De
     
     return db_user_image
 
+@router.patch("/images/update/{name}", response_model=userSchema.UserImage)
+def update_user_image(
+    name: str,
+    image: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    user_image = userSchema.UserImageUpdate(name=name, image=image.file.read())
+    db_user = userCrud.update_user_image(db, user_image)
+
+    db_user.image = base64.b64encode(db_user.image).decode('utf-8')
+    
+    return db_user
+
+
 @router.get("/images/{name}", response_model=userSchema.UserImage)
 def get_user_image_by_name(name: str, db: Session = Depends(get_db)):
     user_image = userCrud.get_user_image_by_name(db, name)
@@ -72,4 +88,16 @@ def get_user_image_by_name(name: str, db: Session = Depends(get_db)):
     
     user_image.image = base64.b64encode(user_image.image).decode('utf-8')
     return user_image
+@router.post("/images/save/{name}", response_model=userSchema.UserImage)
+def create_user_image_from_url(image_url: str, name: str, db: Session = Depends(get_db)):
+    try:
+        response = requests.get(image_url)
+        response.raise_for_status()
+        image_bytes = response.content
+        user_image = userSchema.UserImageCreate(name=name, image=image_bytes)
+        db_user_image = userCrud.create_user_image(db, user_image)
+        db_user_image.image = base64.b64encode(db_user_image.image).decode('utf-8')
+        return db_user_image
+    except requests.exceptions.HTTPError:
+        raise HTTPException(status_code=400, detail="Invalid image URL provided.")
 

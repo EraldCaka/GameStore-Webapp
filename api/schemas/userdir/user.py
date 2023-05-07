@@ -36,6 +36,11 @@ class UserImageCreate(UserImageBase):
     pass
 
 
+class UserImageUpdate(UserImageBase):
+    name: Optional[str] = None
+    image: Optional[bytes] = None
+
+
 class UserImage(UserImageBase):
     user_id: int
 

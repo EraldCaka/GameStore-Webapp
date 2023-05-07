@@ -5,7 +5,8 @@ import { useAppContext } from "../context/appContext";
 import { DISPLAY_ALERT } from "../context/actions";
 import { apiCall } from "../axios/axios";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import avatar from "../assets/images/defaultUserPfp/avatar1.png";
 const initialState = {
   name: "",
   password: "",
@@ -14,6 +15,7 @@ const initialState = {
 };
 
 const Register = () => {
+  console.log(avatar);
   const [values, setValues] = useState(initialState);
   const { isLoading, showAlert, displayAlert } = useAppContext();
   const navigate = useNavigate();
@@ -68,7 +70,27 @@ const Register = () => {
         password: values.password,
         type: "user",
       };
+
       const response = await apiCall("/register").create(register);
+
+      console.log(response.data);
+      const imgUrl =
+        "?image_url=https%3A%2F%2Fwww.asiamediajournal.com%2Fwp-content%2Fuploads%2F2022%2F11%2FDefault-PFP.jpg";
+
+      const urlValid =
+        "https://www.asiamediajournal.com/wp-content/uploads/2022/11/Default-PFP.jpg";
+      const imageJson = {
+        name: register.name,
+        image_url: urlValid,
+      };
+      console.log(register.name);
+      let temp = register.name;
+      const responseImage = await apiCall("/users/images/save").createImage(
+        temp,
+        imgUrl,
+        imageJson
+      );
+      console.log(responseImage.data);
     }
 
     login = {

@@ -14,11 +14,13 @@ export const apiCall = (endpoint) => {
     createbyname: (name, inserted) => axios.post(url + name, inserted),
     put: (updated, id) => axios.put(url + id, updated),
     deleted: (id) => axios.delete(url + id),
+    createImage: (name, url1, image) => axios.post(url + name + url1, image),
     complexQuery: (request, method) => {
       let args = "";
       request.forEach((arg) => {
         args += arg + "/";
       });
+
       //args = args.slice(0, -1);
       switch (method) {
         case "GET":

@@ -12,6 +12,7 @@ const Account = () => {
     password: "",
     imageUrl: "",
     image: null,
+    imageDisplay: "",
   });
 
   useEffect(() => {
@@ -20,14 +21,38 @@ const Account = () => {
         const response = await apiCall("/users/search/entity").fetchByName(
           localStorage.getItem("token")
         );
-        console.log(localStorage.getItem("token"));
-        console.log(response.data);
+        const imageResponse = await apiCall("/users/images").fetchByName(
+          response.data.name
+        );
         setUserInfo({
           id: response.data.user_id,
           username: response.data.name,
           email: response.data.email,
           password: response.data.password,
         });
+        console.log(localStorage.getItem("token"));
+        console.log(response.data);
+
+        const imagess = imageResponse.data.image;
+        if (imagess) {
+          const imageData = atob(decodeURIComponent(imagess));
+          const byteNumbers = new Array(imageData.length);
+          for (let i = 0; i < imageData.length; i++) {
+            byteNumbers[i] = imageData.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "image/png" });
+          const urlCreator = window.URL || window.webkitURL;
+          const temp = urlCreator.createObjectURL(blob);
+
+          setUserInfo({
+            id: response.data.user_id,
+            username: response.data.name,
+            email: response.data.email,
+            password: response.data.password,
+            imageDisplay: temp ?? "",
+          });
+        }
       } catch (error) {
         console.error(error);
       }
@@ -74,8 +99,10 @@ const Account = () => {
         const data = {
           image: userInfo.image,
         };
-        const response = await axios.post(
-          "http://localhost:80/users/images/send/" + userInfo.username,
+
+        console.log(data);
+        const response = await axios.patch(
+          "http://localhost:80/users/images/update/" + userInfo.username,
           data,
           {
             headers: {
@@ -99,6 +126,8 @@ const Account = () => {
         imageUrl: imageUrl,
         image: file, // update image instead of file
       });
+
+      console.log(file);
     }
   };
   return (
@@ -108,7 +137,11 @@ const Account = () => {
         <ProfilePic href="#">
           <label htmlFor="profile-pic-input">
             <img
-              src={userInfo.imageUrl ?? "https://via.placeholder.com/400x400"}
+              src={
+                userInfo.imageUrl ??
+                userInfo.imageDisplay ??
+                "https://via.placeholder.com/400x400"
+              }
               alt="profile picture"
             />
           </label>

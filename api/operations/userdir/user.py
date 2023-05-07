@@ -72,3 +72,22 @@ def get_user_image_by_name(db: Session, name: str):
     image_data = db_user_image.image
     
     return userSchema.UserImage(name=db_user_image.name, image=image_data , user_id = db_user_image.user_id)
+
+def update_user_image(db: Session, user_image_data: userSchema.UserImage):
+    db_user = db.query(UserImage).filter(UserImage.name == user_image_data.name).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if db_user.image is None:
+        raise HTTPException(status_code=404, detail="User image not found")
+    if db_user.image == user_image_data.image:
+        raise HTTPException(status_code=400, detail="Image is the same")
+    if db_user.image is not None:
+        print("image is not none")
+        content =  user_image_data.image
+        
+        db_user.image = content
+        db_user.name =  user_image_data.name
+        db.commit()
+        db.refresh(db_user)
+    return db_user
