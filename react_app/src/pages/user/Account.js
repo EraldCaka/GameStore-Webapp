@@ -130,20 +130,29 @@ const Account = () => {
       console.log(file);
     }
   };
+  const handleImageLoad = () => {
+    URL.revokeObjectURL(userInfo.imageUrl);
+    URL.revokeObjectURL(userInfo.imageDisplay);
+  };
   return (
     <div>
       <NavbarLine />
       <Container>
         <ProfilePic href="#">
           <label htmlFor="profile-pic-input">
-            <img
-              src={
-                userInfo.imageUrl ??
-                userInfo.imageDisplay ??
-                "https://via.placeholder.com/400x400"
-              }
-              alt="profile picture"
-            />
+            {userInfo.imageUrl || userInfo.imageDisplay ? (
+              <img
+                src={
+                  userInfo.imageUrl ??
+                  userInfo.imageDisplay ??
+                  "https://via.placeholder.com/400x400"
+                }
+                alt="profile picture"
+                onLoad={handleImageLoad}
+              />
+            ) : (
+              <span></span>
+            )}
           </label>
           <input
             id="profile-pic-input"
