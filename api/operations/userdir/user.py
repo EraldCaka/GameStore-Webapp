@@ -9,6 +9,8 @@ from typing import List
 def get_user_by_id(db: Session, user_id: int):
     return db.query(User).filter(User.user_id == user_id).first()
 
+def search_users_correctly(db: Session, name: str):
+    return db.query(User).filter(User.name == name).first()
 # get all users
 def get_users(db: Session):
     return db.query(User).all()
@@ -48,6 +50,9 @@ def delete_user(db: Session, user_id: int):
 
 def search_users(db: Session, search: str):
     return db.query(User).filter(User.name.like(f"%{search}%")).all()
+
+
+
 
 def create_user_image(db: Session, user_image_data: userSchema.UserImageCreate):
     db_user_image = db.query(UserImage).filter_by(name=user_image_data.name).first()

@@ -41,7 +41,7 @@ const Register = () => {
     e.preventDefault();
     let login = {};
     let register = {};
-    let image = {};
+
     console.log(values);
     if (values.isMember) {
       login = {
@@ -69,25 +69,6 @@ const Register = () => {
         type: "user",
       };
       const response = await apiCall("/register").create(register);
-      const data = response.data;
-      console.log(data);
-
-      /*
-
-
-      save an image that is saved in "../../assets/images/defaultUserPfp/avatar1.png" directory to the database as a blob
-      
-      the response will be this way 
-      image ={
-        name : "name",
-        image : "image"
-      }
-
-      api call will be this way
-      const response = await apiCall("/users/images").create(values.name, image);
-
-
-      */
     }
 
     login = {

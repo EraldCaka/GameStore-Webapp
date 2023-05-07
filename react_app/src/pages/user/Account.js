@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavbarLine } from "../style/";
 import { apiCall } from "../../axios/axios";
+import axios from "axios";
 
 const Account = () => {
   const [userInfo, setUserInfo] = useState({
@@ -9,20 +10,23 @@ const Account = () => {
     username: "",
     email: "",
     password: "",
+    imageUrl: "",
+    image: null,
   });
-  let update = {};
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await apiCall("/users/search").fetchByName(
+        const response = await apiCall("/users/search/entity").fetchByName(
           localStorage.getItem("token")
         );
-
+        console.log(localStorage.getItem("token"));
+        console.log(response.data);
         setUserInfo({
-          id: response.data[0].user_id,
-          username: response.data[0].name,
-          email: response.data[0].email,
-          password: response.data[0].password,
+          id: response.data.user_id,
+          username: response.data.name,
+          email: response.data.email,
+          password: response.data.password,
         });
       } catch (error) {
         console.error(error);
@@ -42,31 +46,78 @@ const Account = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      update = {
+      const update = {
         name: userInfo.username,
         password: userInfo.password,
         email: userInfo.email,
       };
-      console.log(userInfo.id);
-      console.log(update.name);
-      console.log(update.email);
-      console.log(update.password);
       const id = userInfo.id;
       const response = await apiCall("/users").put(update, id);
-      console.log(response.data);
+      const getBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            resolve(reader.result);
+          };
+          reader.onerror = (error) => {
+            reject(error);
+          };
+        });
+      };
+      const handleImageUpload = async () => {
+        const base64Image = await getBase64(userInfo.image);
+        let imageBinary = base64Image.slice(23);
+        const formData = new FormData();
+        formData.append("name", userInfo.username);
+        formData.append("image", imageBinary);
+        const data = {
+          image: userInfo.image,
+        };
+        const response = await axios.post(
+          "http://localhost:80/users/images/send/" + userInfo.username,
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      };
+
+      handleImageUpload();
     } catch (error) {
       console.error(error);
     }
   };
-
+  const handleImageChange = (event) => {
+    let file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUserInfo({
+        ...userInfo,
+        imageUrl: imageUrl,
+        image: file, // update image instead of file
+      });
+    }
+  };
   return (
     <div>
       <NavbarLine />
       <Container>
         <ProfilePic href="#">
-          <img
-            src="https://via.placeholder.com/400x400"
-            alt="profile picture"
+          <label htmlFor="profile-pic-input">
+            <img
+              src={userInfo.imageUrl ?? "https://via.placeholder.com/400x400"}
+              alt="profile picture"
+            />
+          </label>
+          <input
+            id="profile-pic-input"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
           />
         </ProfilePic>
         <form onSubmit={handleSubmit}>
@@ -161,11 +212,13 @@ const ProfilePic = styled.a`
   margin-right: 30px;
   cursor: pointer;
 
-  img {
+  img,
+  label {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: inherit;
+    cursor: pointer;
   }
 `;
 
