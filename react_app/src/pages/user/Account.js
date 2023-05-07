@@ -252,6 +252,13 @@ const ProfilePic = styled.a`
     object-fit: cover;
     border-radius: inherit;
     cursor: pointer;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover img,
+  &:hover label {
+    transform: scale(1.1);
   }
 `;
 

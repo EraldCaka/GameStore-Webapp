@@ -41,6 +41,12 @@ npm start
 
 ![image](https://user-images.githubusercontent.com/96385473/236695498-dcd7c7b2-590c-4c64-8bd6-cbbb6100deac.png)
 
+## Current Update
+
+<li>Profile Pictures<li>
+<li>Default Profile Picture automatically assigned when registered</li>
+<li>Can change the profile picture at the account section</li>
+
 ## Javascript Libraries
 
 <li>react.js(Framework)</li>
@@ -58,14 +64,14 @@ npm start
 <li>psycopg2-binary</li>
 <li>sqlalchemy</li>
 <li>PyJWT</li>
-<li>requests<li>
+<li>requests</li>
 
 ## Database
 
-<li>Dbeaver
-<li>Postgres
+<li>Dbeaver</li>
+<li>Postgres</li>
 
 ## Utilities
 
-<li>Docker
-<li>Postman
+<li>Docker</li>
+<li>Postman</li>
