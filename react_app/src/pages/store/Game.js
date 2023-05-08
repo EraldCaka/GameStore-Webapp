@@ -27,17 +27,20 @@ const GameCard = styled(Card)`
 
 const GameTitle = styled(Card.Title)`
   font-weight: bold;
-  font-size: 1.2rem;
+  font-family: Bahnschrift;
+  font-size: 1.5rem;
 `;
 
 const GameDescription = styled(Card.Text)`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  font-family: Bahnschrift;
 `;
 
 const GameText = styled(Card.Text)`
   font-size: 0.8rem;
   color: #a0a0a0;
+  font-family: Bahnschrift;
 `;
 
 const ButtonWrapper = styled.div`

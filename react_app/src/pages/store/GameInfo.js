@@ -71,35 +71,46 @@ const GameInfo = () => {
           <span></span>
         )}
       </ImageWrapper>
+
       <Body>
-        <GameInfoContainer>
-          <GameTitle>{userInfo.name}</GameTitle>
-          <GameDescription>
-            Description : {userInfo.description}
-          </GameDescription>
-          <GamePrice>Price : {userInfo.price}$</GamePrice>
-          <GamePrice>Genre : {userInfo.genre}</GamePrice>
-          <GamePrice>Release Date : {userInfo.release_date}</GamePrice>
-          <GamePrice>Publisher : {userInfo.publisher}</GamePrice>
-        </GameInfoContainer>
+        <div className="game-info__overlay">
+          <GameInfoContainer>
+            <GameTitle>{userInfo.name}</GameTitle>
+            <GameDescription>
+              Description : {userInfo.description}
+            </GameDescription>
+            <GamePrice>Price : {userInfo.price}$</GamePrice>
+            <GamePrice>Genre : {userInfo.genre}</GamePrice>
+            <GamePrice>Release Date : {userInfo.release_date}</GamePrice>
+            <GamePrice>Publisher : {userInfo.publisher}</GamePrice>
+
+            <GameButtonsContainer className="game-info__buttons">
+              <GameButton className="btn1 btn-hero1">Add to Cart</GameButton>
+              <GameButton className="btn1 btn-hero1">
+                Add to Wishlist
+              </GameButton>
+            </GameButtonsContainer>
+          </GameInfoContainer>
+        </div>
       </Body>
-      <GameButtonsContainer className="game-info__buttons">
-        <GameButton className="btn1 btn-hero1">Add to Cart</GameButton>
-        <GameButton className="btn1 btn-hero1">Add to Wishlist</GameButton>
-      </GameButtonsContainer>
     </div>
   );
 };
+
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  width: 99vw;
-  height: auto;
-`;
+  background-repeat: repeat;
+  padding-bottom: 3rem;
 
+  width: 100vw;
+  height: auto;
+
+  background-image: url("https://img.freepik.com/free-vector/abstract-background-with-squares_23-2148995948.jpg?w=1380&t=st=1683577612~exp=1683578212~hmac=1383b739f16a1520d3af2f2d4f33e5c7d2c44a6170361021ea47d64d30c121e9");
+`;
 const GameInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -108,29 +119,30 @@ const GameInfoContainer = styled.div`
   background-image: url("");
   background-size: cover;
   background-position: center;
-  padding: 2rem;
+  padding-top: 1rem;
 `;
 
 const GameTitle = styled.h1`
-  font-size: 3rem;
+  font-size: 5rem;
   color: #000;
+  font-family: Bahnschrift;
 `;
 
 const GameDescription = styled.p`
   font-size: 1.5rem;
   color: #000000;
   margin-bottom: 2rem;
+  font-family: Bahnschrift;
 `;
 
 const GamePrice = styled.p`
   font-size: 1.5rem;
   color: #000000;
   margin-bottom: 2rem;
+  font-family: Bahnschrift;
 `;
 
 const GameButtonsContainer = styled.div`
-  justify-content: space-between;
-  align-items: center;
   //center the buttons
   display: flex;
   width: 100%;
@@ -143,7 +155,8 @@ const GameButton = styled.button`
   padding: 1.5rem 2.5rem;
   border: none;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  margin: 0 1rem;
   cursor: pointer;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
