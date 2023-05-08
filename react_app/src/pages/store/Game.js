@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import styled from "styled-components";
-
+import { Navigate, useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   width: 18rem;
   margin: 1rem;
@@ -75,7 +75,7 @@ const Game = ({
   publisher,
 }) => {
   const [imageUrl, setImageUrl] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (image) {
       const imageData = atob(decodeURIComponent(image));
@@ -92,6 +92,12 @@ const Game = ({
 
   const handleImageLoad = () => {
     URL.revokeObjectURL(imageUrl);
+  };
+
+  const onSubmit = () => {
+    navigate(`/store/${name}`);
+    // , price , description , genre , rating , release_date , publisher ,imageUrl
+    // transfer these data to the next page
   };
 
   return (
@@ -119,7 +125,7 @@ const Game = ({
           <GameText>publisher: {publisher}</GameText>
           <GameText>price: {price}$</GameText>
           <ButtonWrapper>
-            <Button variant="primary" className="btn1">
+            <Button variant="primary" className="btn1" onClick={onSubmit}>
               Purchase
             </Button>
           </ButtonWrapper>

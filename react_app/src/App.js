@@ -7,6 +7,7 @@ import {
   Wishlist,
   Account,
 } from "./pages/user/index";
+import { GameInfo } from "./pages/store/index";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/store/:gameId" element={<GameInfo />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

@@ -30,8 +30,6 @@ const Account = () => {
           email: response.data.email,
           password: response.data.password,
         });
-        console.log(localStorage.getItem("token"));
-        console.log(response.data);
 
         const imagess = imageResponse.data.image;
         if (imagess) {
