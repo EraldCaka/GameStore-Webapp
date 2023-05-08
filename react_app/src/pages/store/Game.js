@@ -4,8 +4,8 @@ import Card from "react-bootstrap/Card";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
-  width: 18rem;
-  margin: 1rem;
+  width: 25rem;
+  margin: 6rem;
 `;
 
 const Wrapper1 = styled.div`
@@ -28,17 +28,19 @@ const GameCard = styled(Card)`
 const GameTitle = styled(Card.Title)`
   font-weight: bold;
   font-family: Bahnschrift;
-  font-size: 1.5rem;
+  font-size: 2.1rem;
+  margin-top: 2.5rem;
 `;
 
 const GameDescription = styled(Card.Text)`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-family: Bahnschrift;
+  font-size: 1.1rem;
 `;
 
 const GameText = styled(Card.Text)`
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   color: #a0a0a0;
   font-family: Bahnschrift;
 `;
