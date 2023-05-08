@@ -61,11 +61,15 @@ const GameInfo = () => {
     <div className="game-info">
       <NavbarLine />
       <ImageWrapper>
-        <GameImage
-          src={userInfo.imageDisplay}
-          alt="Game Background"
-          onLoad={handleImageLoad}
-        />
+        {userInfo.imageDisplay ? (
+          <GameImage
+            src={userInfo.imageDisplay}
+            alt="Game Background"
+            onLoad={handleImageLoad}
+          />
+        ) : (
+          <span></span>
+        )}
       </ImageWrapper>
       <Body>
         <GameInfoContainer>
@@ -92,7 +96,7 @@ const Body = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 100vw;
+  width: 99vw;
   height: auto;
 `;
 

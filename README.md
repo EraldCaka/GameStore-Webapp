@@ -41,6 +41,8 @@ npm start
 
 ![image](https://user-images.githubusercontent.com/96385473/236695498-dcd7c7b2-590c-4c64-8bd6-cbbb6100deac.png)
 
+![image](https://user-images.githubusercontent.com/96385473/236903926-b60ca4b4-020d-4bbd-a494-675bb47a1eb4.png)
+
 ## Current Update
 
 <li>Profile Pictures<li>
@@ -55,6 +57,8 @@ npm start
 <li>axios</li>
 <li>styled-components</li>
 <li>atob</li>
+<li>buffer</li>
+<li>base64</li>
 
 ## Python Libraries
 
