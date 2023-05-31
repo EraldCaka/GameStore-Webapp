@@ -28,3 +28,6 @@ function App() {
 }
 
 export default App;
+
+//paypal sandbox for payment
+//digital oceans for hosting

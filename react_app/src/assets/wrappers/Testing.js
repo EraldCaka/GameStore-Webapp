@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Wrapper = styled.main`
-  nav {
+  .nav1 {
     width: var(--fluid-width);
     max-width: var(--max-width);
     margin: 0 auto;
