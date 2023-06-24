@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import styled from "styled-components";
-
+import { apiCall } from "../../axios/axios";
+import { Navigate, useNavigate } from "react-router-dom";
 const Wrapper = styled.div`
   width: 25rem;
   margin: 6rem;
@@ -23,6 +24,8 @@ const Wrapper1 = styled.div`
 const GameCard = styled(Card)`
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
   border-radius: 0.5rem;
+  width: 100%;
+  height: 100%;
 `;
 
 const GameTitle = styled(Card.Title)`
@@ -67,7 +70,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const LibraryCard = ({
+const Wishlist = ({
   image,
   name,
   price,
@@ -77,7 +80,25 @@ const LibraryCard = ({
   release_date,
   publisher,
 }) => {
+  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
+  const onclickwishlist = async () => {
+    const tempname = localStorage.getItem("token");
+    const getUserId = await apiCall("/users/search/entity").fetchByName(
+      tempname
+    );
+    const tempId = getUserId.data.user_id;
+    const getUserWishlist = await apiCall("/wishlist/user").fetchById(tempId);
+
+    for (let i = 0; i < getUserWishlist.data.length; i++) {
+      if (getUserWishlist.data[i].game_name === name) {
+        await apiCall("/wishlist").deleted(getUserWishlist.data[i].id);
+      }
+    }
+
+    navigate("/store");
+  };
+  const onclickcart = async () => {};
 
   useEffect(() => {
     if (image) {
@@ -122,8 +143,16 @@ const LibraryCard = ({
           <GameText>release date: {release_date}</GameText>
           <GameText>publisher: {publisher}</GameText>
           <ButtonWrapper>
-            <Button variant="primary" className="btn1">
-              Play
+            <Button variant="primary" className="btn1" onClick={onclickcart}>
+              Add to cart
+            </Button>
+            <Button
+              variant="primary"
+              className="btn1"
+              onClick={onclickwishlist}
+              style={{ marginLeft: "10px" }}
+            >
+              Remove from wishlist
             </Button>
           </ButtonWrapper>
         </Card.Body>
@@ -132,4 +161,4 @@ const LibraryCard = ({
   );
 };
 
-export default LibraryCard;
+export default Wishlist;

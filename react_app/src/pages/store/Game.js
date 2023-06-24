@@ -111,6 +111,7 @@ const Game = ({
         <Wrapper1>
           {imageUrl ? (
             <Card.Img
+              style={{ width: "100%", height: "150%" }}
               variant="top"
               src={imageUrl}
               alt={name}
