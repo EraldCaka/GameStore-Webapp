@@ -57,6 +57,7 @@ function NavbarLine() {
             <NavDropdown title="Settings" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/account">Account</NavDropdown.Item>
               <NavDropdown.Item href="/wishlist">Wishlist</NavDropdown.Item>
+              <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/register" onClick={Logout}>
                 Logout

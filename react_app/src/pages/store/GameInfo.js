@@ -18,6 +18,31 @@ const GameInfo = () => {
     imageDisplay: "",
   });
   const navigate = useNavigate();
+  const addCart = async () => {
+    let tempName = localStorage.getItem("token");
+    const getUserId = await apiCall("/users/search").fetchByName(tempName);
+    console.log(getUserId.data[0].user_id);
+    let responseObj = {
+      user_id: getUserId.data[0].user_id,
+      game_name: userInfo.name,
+    };
+    console.log(responseObj);
+    const response = await apiCall("/cart").create(responseObj);
+    console.log(response);
+  };
+  const addWishlist = async () => {
+    let tempName = localStorage.getItem("token");
+    const getUserId = await apiCall("/users/search").fetchByName(tempName);
+    console.log(getUserId.data[0].user_id);
+    let responseObj = {
+      user_id: getUserId.data[0].user_id,
+      game_name: userInfo.name,
+    };
+    console.log(responseObj);
+    const response = await apiCall("/wishlist").create(responseObj);
+    console.log(response);
+  };
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -85,8 +110,10 @@ const GameInfo = () => {
             <GamePrice>Publisher : {userInfo.publisher}</GamePrice>
 
             <GameButtonsContainer className="game-info__buttons">
-              <GameButton className="btn1 btn-hero1">Add to Cart</GameButton>
-              <GameButton className="btn1 btn-hero1">
+              <GameButton className="btn1 btn-hero1" onClick={addCart}>
+                Add to Cart
+              </GameButton>
+              <GameButton className="btn1 btn-hero1" onClick={addWishlist}>
                 Add to Wishlist
               </GameButton>
             </GameButtonsContainer>
