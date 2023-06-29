@@ -51,7 +51,6 @@ function NavbarLine() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/homepage">Home</Nav.Link>
             <Nav.Link href="/store">Store</Nav.Link>
             <Nav.Link href="/library">Library</Nav.Link>
             <NavDropdown title="Settings" id="navbarScrollingDropdown">

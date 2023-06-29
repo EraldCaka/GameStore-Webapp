@@ -98,7 +98,18 @@ const Wishlist = ({
 
     navigate("/store");
   };
-  const onclickcart = async () => {};
+  const onclickcart = async () => {
+    let tempName = localStorage.getItem("token");
+    const getUserId = await apiCall("/users/search").fetchByName(tempName);
+    console.log(getUserId.data[0].user_id);
+    let responseObj = {
+      user_id: getUserId.data[0].user_id,
+      game_name: name,
+    };
+    console.log(responseObj);
+    const response = await apiCall("/cart").create(responseObj);
+    console.log(response);
+  };
 
   useEffect(() => {
     if (image) {
