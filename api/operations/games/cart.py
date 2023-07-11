@@ -51,3 +51,6 @@ def get_games_by_user_id(db: Session, user_id: int):
 
 def search_games(db: Session, search: str):
     return db.query(Cart).filter(Cart.game_name.like(f"%{search}%")).all()
+
+def search_game(db: Session, search: str):
+    return db.query(Cart).filter(Cart.game_name == search).first()

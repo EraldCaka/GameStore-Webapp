@@ -29,7 +29,7 @@ const Register = () => {
       return;
     } else {
       console.log("Already Logged in");
-      navigate("/homepage");
+      navigate("/store");
     }
   };
   verifyToken();

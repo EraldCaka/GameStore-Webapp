@@ -17,11 +17,13 @@ function NavbarLine() {
     const response = await apiCall("/login/token/user").fetchToken();
     const data = response.data;
     // console.log(data);
-    let token = {
+    token = {
       token: data.access_token,
       token_type: "user",
       name: data.token_type,
     };
+    console.log("token");
+    console.log(token);
 
     if (token.token !== "") {
       // console.log("token verified");
@@ -37,7 +39,8 @@ function NavbarLine() {
     const response = await apiCall("/login/logout").logout();
     const data = response.data;
     localStorage.setItem("token", "");
-    console.log(data);
+    console.log(data + "logout");
+    navigate("/register");
   };
 
   return (
@@ -58,23 +61,12 @@ function NavbarLine() {
               <NavDropdown.Item href="/wishlist">Wishlist</NavDropdown.Item>
               <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/register" onClick={Logout}>
-                Logout
-              </NavDropdown.Item>
+              <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="#" disabled>
               Add Funds
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import styled from "styled-components";
 import { apiCall } from "../../axios/axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import CartPurchase from "./CartPurchase";
 const Wrapper = styled.div`
   width: 25rem;
   margin: 6rem;
@@ -70,16 +71,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const CartCard = ({
-  image,
-  name,
-  price,
-  description,
-  genre,
-  rating,
-  release_date,
-  publisher,
-}) => {
+const CartCard = ({ image, name, price }) => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const onclickwishlist = async () => {
@@ -119,45 +111,41 @@ const CartCard = ({
   };
 
   return (
-    <Wrapper>
-      <GameCard>
-        <Wrapper1>
-          {imageUrl ? (
-            <Card.Img
-              style={{ width: "100%", height: "150%" }}
-              variant="top"
-              src={imageUrl}
-              alt={name}
-              className="img-db"
-              onLoad={handleImageLoad}
-            />
-          ) : (
-            <span>Loading...</span>
-          )}
-        </Wrapper1>
-        <Card.Body>
-          <GameTitle>{name}</GameTitle>
-          <GameDescription>{description}</GameDescription>
-          <GameText>genre: {genre}</GameText>
-          <GameText>rating: {rating}</GameText>
-          <GameText>release date: {release_date}</GameText>
-          <GameText>publisher: {publisher}</GameText>
-          <ButtonWrapper>
-            <Button variant="primary" className="btn1" onClick={onclickcart}>
-              Purchase
-            </Button>
-            <Button
-              variant="primary"
-              className="btn1"
-              onClick={onclickwishlist}
-              style={{ marginLeft: "10px" }}
-            >
-              Remove from Cart
-            </Button>
-          </ButtonWrapper>
-        </Card.Body>
-      </GameCard>
-    </Wrapper>
+    <div>
+      <Wrapper>
+        <GameCard>
+          <Wrapper1>
+            {imageUrl ? (
+              <Card.Img
+                style={{ width: "100%", height: "150%" }}
+                variant="top"
+                src={imageUrl}
+                alt={name}
+                className="img-db"
+                onLoad={handleImageLoad}
+              />
+            ) : (
+              <span>Loading...</span>
+            )}
+          </Wrapper1>
+          <Card.Body>
+            <GameTitle>{name}</GameTitle>
+            <GameText>price: {price}</GameText>
+
+            <ButtonWrapper>
+              <Button
+                variant="primary"
+                className="btn1"
+                onClick={onclickwishlist}
+                style={{ marginLeft: "10px" }}
+              >
+                Remove from Cart
+              </Button>
+            </ButtonWrapper>
+          </Card.Body>
+        </GameCard>
+      </Wrapper>
+    </div>
   );
 };
 

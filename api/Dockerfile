@@ -62,4 +62,4 @@ COPY ./controllers/game /api/controllers/game
 # 
 
 
-CMD ["uvicorn", "controllers.mainController:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "controllers.mainController:app", "--host", "0.0.0.0", "--port", "81"]

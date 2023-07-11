@@ -46,3 +46,10 @@ def get_all_games_by_user_id(user_id: int, db: Session = Depends(get_db)):
 @router.get("/search/{search}", response_model=List[librarySchema.Cart])
 def search_games(search: str, db: Session = Depends(get_db)):
     return libraryCrud.search_games(db, search)
+
+@router.get("/search/entity/{search}", response_model=librarySchema.Cart)
+def search_game(search: str, db: Session = Depends(get_db)):
+    game = libraryCrud.search_game(db, search)
+    if not game:
+        raise HTTPException(status_code=404, detail="Game not found")
+    return game

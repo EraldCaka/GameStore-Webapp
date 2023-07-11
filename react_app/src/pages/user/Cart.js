@@ -1,6 +1,6 @@
 import { NavbarLine } from "../style/";
 import { useEffect, useState } from "react";
-
+import CartPurchase from "../store/CartPurchase";
 import LibraryCard from "../store/Cart";
 import { apiCall } from "../../axios/axios";
 import styled from "styled-components";
@@ -33,22 +33,16 @@ const CartCard = () => {
         const gameResponse1 = await apiCall("/games/search").fetchByName(
           game.game_name
         );
+        console.log(gameResponse1);
         const image = imageResponse.data.image;
         const price = gameResponse1.data[0].price;
-        const description = gameResponse1.data[0].description;
-        const genre = gameResponse1.data[0].genre;
-        const rating = gameResponse1.data[0].rating;
-        const release_date = gameResponse1.data[0].release_date;
-        const publisher = gameResponse1.data[0].publisher;
+
+        console.log(price);
 
         return {
           image: image,
           name: game.game_name,
-          description: description,
-          genre: genre,
-          rating: rating,
-          release_date: release_date,
-          publisher: publisher,
+          price: price,
         };
       })
     );
@@ -74,15 +68,12 @@ const CartCard = () => {
               key={index}
               image={game.image}
               name={game.name}
-              description={game.description}
-              genre={game.genre}
-              rating={game.rating}
-              release_date={game.release_date}
-              publisher={game.publisher}
+              price={game.price}
             />
           ))}
         </div>
       </Wrapper>
+      <CartPurchase />
     </div>
   );
 };

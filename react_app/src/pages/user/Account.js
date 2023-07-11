@@ -100,7 +100,7 @@ const Account = () => {
 
         console.log(data);
         const response = await axios.patch(
-          "http://localhost:80/users/images/update/" + userInfo.username,
+          "http://localhost:81/users/images/update/" + userInfo.username,
           data,
           {
             headers: {
@@ -108,6 +108,7 @@ const Account = () => {
             },
           }
         );
+        console.log(response);
       };
 
       handleImageUpload();

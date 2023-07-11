@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:80";
+const BASE_URL = "http://localhost:81";
 
 export const apiCall = (endpoint) => {
   let url = BASE_URL + endpoint + "/";
@@ -15,6 +15,8 @@ export const apiCall = (endpoint) => {
     put: (updated, id) => axios.put(url + id, updated),
     deleted: (id) => axios.delete(url + id),
     createImage: (name, url1, image) => axios.post(url + name + url1, image),
+    patchImage: (name, image) => axios.patch(url + name, image),
+
     complexQuery: (request, method) => {
       let args = "";
       request.forEach((arg) => {

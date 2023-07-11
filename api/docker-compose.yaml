@@ -6,7 +6,7 @@ services:
   web:
     build: .
     ports:
-      - "80:80"
+      - "81:81"
     depends_on:
       - db
 
