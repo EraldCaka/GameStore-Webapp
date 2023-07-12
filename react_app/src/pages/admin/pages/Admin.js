@@ -1,9 +1,9 @@
-import { Navbar } from "../";
+import { NavbarLine } from "../index";
 
 const Admin = () => {
   return (
     <div>
-      <Navbar />
+      <NavbarLine />
       <h1>Admin</h1>
     </div>
   );

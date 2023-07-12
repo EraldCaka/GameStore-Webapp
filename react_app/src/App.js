@@ -13,7 +13,7 @@ import {
 import { GameInfo } from "./pages/store/index";
 
 //admin imports
-import { Admin } from "./pages/admin/pages/index";
+import { Admin, Games, Users, Profile } from "./pages/admin/pages/index";
 
 function App() {
   return (
@@ -32,6 +32,9 @@ function App() {
         <Route path="*" element={<Error />} />
         {/* Admin router Paths*/}
         <Route path="/admin" element={<Admin />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/admin/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
