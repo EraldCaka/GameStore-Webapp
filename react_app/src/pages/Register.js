@@ -64,7 +64,11 @@ const Register = () => {
         console.log("login success");
         localStorage.setItem("token", data.token_type);
         localStorage.setItem("role", dataRole);
-        navigate("/store");
+        if (dataRole === "user") {
+          navigate("/store");
+        } else if (dataRole === "admin") {
+          navigate("/admin");
+        }
       } else {
         console.log("login failed");
         navigate("/register");

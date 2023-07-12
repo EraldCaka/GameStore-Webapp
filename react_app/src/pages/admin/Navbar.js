@@ -47,7 +47,7 @@ function NavbarLine() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/admin">GameStore</Navbar.Brand>
+        <Navbar.Brand href="/admin">Admin</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -55,7 +55,6 @@ function NavbarLine() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/admin">Admin</Nav.Link>
             <Nav.Link href="/admin">Users</Nav.Link>
             <Nav.Link href="/admin">Games</Nav.Link>
             <NavDropdown title="Settings" id="navbarScrollingDropdown">
