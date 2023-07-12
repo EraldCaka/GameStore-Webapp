@@ -30,8 +30,8 @@ function NavbarLine() {
       localStorage.setItem("token", "");
       navigate("/register");
     }
-    if (token.token_type === "admin") {
-      navigate("/admin");
+    if (token.token_type === "user") {
+      navigate("/store");
     }
   };
   verifyToken();
@@ -47,7 +47,7 @@ function NavbarLine() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/homepage">GameStore</Navbar.Brand>
+        <Navbar.Brand href="/admin">GameStore</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -55,12 +55,11 @@ function NavbarLine() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/store">Store</Nav.Link>
-            <Nav.Link href="/library">Library</Nav.Link>
+            <Nav.Link href="/admin">Admin</Nav.Link>
+            <Nav.Link href="/admin">Users</Nav.Link>
+            <Nav.Link href="/admin">Games</Nav.Link>
             <NavDropdown title="Settings" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-              <NavDropdown.Item href="/wishlist">Wishlist</NavDropdown.Item>
-              <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
+              <NavDropdown.Item href="/admin">Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
             </NavDropdown>

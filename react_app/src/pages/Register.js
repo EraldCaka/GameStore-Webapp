@@ -44,7 +44,7 @@ const Register = () => {
     let login = {};
     let register = {};
 
-    console.log(values);
+    //  console.log(values);
     if (values.isMember) {
       login = {
         name: values.name,
@@ -54,10 +54,16 @@ const Register = () => {
       const data = response.data;
 
       // Redirect the user to UserHomePage.js
-      console.log(data);
+      // console.log(data);
       if (data.token_type === values.name) {
+        const responseRole = await apiCall("/users/search/entity").fetchByName(
+          values.name
+        );
+        const dataRole = responseRole.data.type;
+        //  console.log(dataRole);
         console.log("login success");
         localStorage.setItem("token", data.token_type);
+        localStorage.setItem("role", dataRole);
         navigate("/store");
       } else {
         console.log("login failed");
@@ -73,7 +79,7 @@ const Register = () => {
 
       const response = await apiCall("/register").create(register);
 
-      console.log(response.data);
+      // console.log(response.data);
       const imgUrl =
         "?image_url=https%3A%2F%2Fwww.asiamediajournal.com%2Fwp-content%2Fuploads%2F2022%2F11%2FDefault-PFP.jpg";
 
@@ -107,7 +113,7 @@ const Register = () => {
       displayAlert();
       return;
     }
-    console.log(values);
+    // console.log(values);
   };
 
   return (
