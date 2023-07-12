@@ -63,9 +63,6 @@ function NavbarLine() {
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Add Funds
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

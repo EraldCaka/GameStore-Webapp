@@ -58,7 +58,7 @@ const Register = () => {
       if (data.token_type === values.name) {
         console.log("login success");
         localStorage.setItem("token", data.token_type);
-        navigate("/homepage");
+        navigate("/store");
       } else {
         console.log("login failed");
         navigate("/register");
