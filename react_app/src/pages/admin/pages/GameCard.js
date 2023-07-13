@@ -76,23 +76,21 @@ const ModalContent = styled.div`
   padding: 20px;
 `;
 
-const UserCard = ({ user }) => {
+const GameCard = ({ game }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState({
+  const [gameInfo, setGameInfo] = useState({
     imageUrl: "",
     image: null,
     imageDisplay: "",
   });
-  //  console.log(user);
+  //console.log(game);
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await apiCall("/users/search/entity").fetchByName(
-          user.name
+        const imageResponse = await apiCall("/games/image").fetchByName(
+          game.name
         );
-        const imageResponse = await apiCall("/users/images").fetchByName(
-          response.data.name
-        );
+        //    console.log(imageResponse.data);
 
         const imagess = imageResponse.data.image;
         // console.log(imagess);
@@ -107,7 +105,7 @@ const UserCard = ({ user }) => {
           const urlCreator = window.URL || window.webkitURL;
           const temp = urlCreator.createObjectURL(blob);
 
-          setUserInfo({
+          setGameInfo({
             imageDisplay: temp ?? "",
           });
         }
@@ -123,7 +121,7 @@ const UserCard = ({ user }) => {
   };
 
   const handleRemoveClick = async () => {
-    const response = await apiCall("/users").deleted(user.user_id);
+    const response = await apiCall("/games").deleted(game.game_id);
     console.log("removed");
     window.location.reload();
   };
@@ -136,14 +134,14 @@ const UserCard = ({ user }) => {
     <>
       <CardWrapper>
         <UserInfo>
-          <UserName>{user.name}</UserName>
+          <UserName>{game.name}</UserName>
           <UserDetail>
-            <Label>Email:</Label>
-            <p>{user.email}</p>
+            <Label>Release Day:</Label>
+            <p>{game.release_date}</p>
           </UserDetail>
           <UserDetail>
-            <Label>Role:</Label>
-            <p>{user.type}</p>
+            <Label>Price:</Label>
+            <p>{game.price}</p>
           </UserDetail>
           <ButtonWrapper>
             <Button className="btn1" onClick={handleViewClick}>
@@ -161,15 +159,15 @@ const UserCard = ({ user }) => {
           <ModalContent>
             <img
               src={
-                userInfo.imageDisplay ?? "https://via.placeholder.com/400x400"
+                gameInfo.imageDisplay ?? "https://via.placeholder.com/400x400"
               }
               alt="user"
               style={{ width: "400px", height: "400px" }}
             />
-            <h3>User Information</h3>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
-            <p>Password: {user.password}</p>
+            <h3>Game Information</h3>
+            <p>Name: {game.name}</p>
+            <p>price: {game.price}</p>
+            <p>Genre: {game.genre}</p>
 
             <Button className="btn1" onClick={handleCloseModal}>
               Close
@@ -181,4 +179,4 @@ const UserCard = ({ user }) => {
   );
 };
 
-export default UserCard;
+export default GameCard;

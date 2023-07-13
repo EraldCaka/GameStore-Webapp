@@ -27,6 +27,8 @@ const Users = () => {
       try {
         const response = await apiCall("/users").fetchAll();
         setUsers(response.data);
+        console.log(response.data);
+        console.log(users);
       } catch (error) {
         console.log(error);
       }
