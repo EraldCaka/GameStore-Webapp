@@ -117,15 +117,8 @@ const LibraryCard = ({
         <Card.Body>
           <GameTitle>{name}</GameTitle>
           <GameDescription>{description}</GameDescription>
-          <GameText>genre: {genre}</GameText>
-          <GameText>rating: {rating}</GameText>
-          <GameText>release date: {release_date}</GameText>
-          <GameText>publisher: {publisher}</GameText>
-          <ButtonWrapper>
-            <Button variant="primary" className="btn1">
-              Play
-            </Button>
-          </ButtonWrapper>
+
+          <ButtonWrapper></ButtonWrapper>
         </Card.Body>
       </GameCard>
     </Wrapper>
