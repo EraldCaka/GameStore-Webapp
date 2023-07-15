@@ -79,3 +79,10 @@ def get_game_image_by_name(name: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Game image not found")
     game_image.image = base64.b64encode(game_image.image).decode('utf-8')
     return game_image
+
+@router.patch("/images/update/{name}", response_model=gamesSchema.GameImage)
+def update_game_image_by_name(name: str, image: UploadFile = File(...), db: Session = Depends(get_db)):
+    game_image = gamesSchema.GameImageCreate(name=name, image=image.file.read())
+    db_game_image = gamesCrud.update_game_image(db, game_image)
+    db_game_image.image = base64.b64encode(db_game_image.image).decode('utf-8')
+    return db_game_image

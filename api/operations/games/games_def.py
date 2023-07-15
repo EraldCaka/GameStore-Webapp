@@ -75,3 +75,19 @@ def get_game_image_by_name(db: Session, game_name: str):
     image_data = db_game_image.image
 
     return gamesSchema.GameImage(name=db_game_image.name, image=image_data , id = db_game_image.id)
+
+def update_game_image(db:Session, user_image_data:gamesSchema.GameImageBase):
+    db_user = db.query(GameImage).filter_by(name=user_image_data.name).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="Game image not found")
+    if db_user.image is None:
+        raise HTTPException(status_code=404, detail="Game image not found")
+    if db_user.image == user_image_data.image:
+        raise HTTPException(status_code=400, detail="Game image already exists")
+    if db_user.image is not None:
+        content = user_image_data.image
+        db_user.image = content
+        db_user.name = user_image_data.name
+        db.commit()
+        db.refresh(db_user)
+    return db_user

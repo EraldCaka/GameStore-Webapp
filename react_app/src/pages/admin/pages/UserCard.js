@@ -166,8 +166,7 @@ const UserCard = ({ user }) => {
               alt="user"
               style={{ width: "400px", height: "400px" }}
             />
-            <h3>User Information</h3>
-            <p>Name: {user.name}</p>
+            <h3>{user.name}</h3>
             <p>Email: {user.email}</p>
             <p>Password: {user.password}</p>
 

@@ -29,13 +29,13 @@ class GameUpdate(GameBase):
 
 class Games(GameBase):
     game_id: int
-    #incremental id for each game
     class Config:
         orm_mode = True
 
 class GameImageBase(BaseModel):
      name: str
      image: Optional[bytes]
+
 
 class GameImageCreate(GameImageBase):
     pass
