@@ -51,25 +51,16 @@ const HeadingWrapper = styled.div`
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(0); // Initialize amount with 0
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
         const response = await apiCall("/transactions").fetchAll();
-        const data = {
-          user_id: responseUser.data.id,
-          game_id: response.data.id,
-          price: response.data.price,
-          date: response.data.date,
-        };
-
-        const responseUser = await apiCall("/users").fetchByName(
-          localStorage.getItem("token")
-        );
 
         setTransactions(response.data);
 
+        // Calculate the total amount by summing up the prices
         const totalAmount = response.data.reduce(
           (accumulator, transaction) => accumulator + transaction.price,
           0
@@ -99,8 +90,7 @@ const Transactions = () => {
     <div>
       <NavbarLine />
       <HeadingWrapper>
-        <h1>User Transactions</h1>
-        <h2>(Amount spent: ${amount})</h2>
+        <h1>Transactions (Total Amount: ${amount})</h1>
       </HeadingWrapper>
       <TransactionsWrapper>
         {transactions.length > 0 ? (
@@ -111,9 +101,6 @@ const Transactions = () => {
               <TransactionDate>
                 Date: {formatDateTime(transaction.date)}
               </TransactionDate>
-              <TransactionPrice>
-                Transaction_id: {transaction.id}
-              </TransactionPrice>
             </TransactionCard>
           ))
         ) : (
