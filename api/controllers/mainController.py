@@ -4,12 +4,13 @@ from controllers.user import userController
 from config.database import engine
 from controllers.validation import  loginController, registerController 
 from controllers.game import gamesController , library, wishlist,cart
+from controllers.transactions import Transaction
 from fastapi.middleware.cors import CORSMiddleware
 from starlette import status
 
 userModel.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="GameStore API", version="0.1.4")
+app = FastAPI(title="GameStore API", version="0.1.5")
 origins = [
     "http://localhost:3000"
 ]
@@ -28,3 +29,4 @@ app.include_router(gamesController.router)
 app.include_router(library.router)
 app.include_router(wishlist.router)
 app.include_router(cart.router)
+app.include_router(Transaction.router)

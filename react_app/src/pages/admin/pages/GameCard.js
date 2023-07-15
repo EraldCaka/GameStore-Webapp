@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apiCall } from "../../../axios/axios";
 import axios from "axios";
+
 const CardWrapper = styled.div`
   background-color: #f5f5f5;
   border-radius: 8px;
@@ -81,26 +82,35 @@ const ModalContent = styled.div`
   max-height: 80vh;
   overflow-y: auto;
 `;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
 const FormInput = styled.input`
-  width: 100%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  width: calc(100% + 10px);
 `;
 
 const FormTextarea = styled.textarea`
-  width: 100%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  width: calc(100% + 10px);
 `;
+
 const FormLabel = styled.label`
   display: block;
   margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
 `;
 
 const GameCard = ({ game }) => {
@@ -118,19 +128,15 @@ const GameCard = ({ game }) => {
     genre: game.genre,
   });
   const [isEditing, setIsEditing] = useState(false);
-  //console.log(game);
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const imageResponse = await apiCall("/games/image").fetchByName(
           game.name
         );
-        //    console.log(imageResponse.data);
-
-        const imagess = imageResponse.data.image;
-        // console.log(imagess);
-        if (imagess) {
-          const imageData = atob(decodeURIComponent(imagess));
+        if (imageResponse.data.image) {
+          const imageData = atob(decodeURIComponent(imageResponse.data.image));
           const byteNumbers = new Array(imageData.length);
           for (let i = 0; i < imageData.length; i++) {
             byteNumbers[i] = imageData.charCodeAt(i);
@@ -148,6 +154,7 @@ const GameCard = ({ game }) => {
         console.error(error);
       }
     };
+
     fetchUserInfo();
   }, []);
 
@@ -164,7 +171,6 @@ const GameCard = ({ game }) => {
   const handleCloseModal = async () => {
     setIsModalOpen(false);
     setIsEditing(false);
-    console.log(game.game_id);
     const body = {
       name: game.name,
       description: editValues.description,
@@ -175,10 +181,7 @@ const GameCard = ({ game }) => {
       genre: editValues.genre,
     };
 
-    //  console.log(body);
     const updateResponse = await apiCall("/games").put(body, game.game_id);
-
-    // console.log(updateResponse);
 
     const getBase64 = (file) => {
       return new Promise((resolve, reject) => {
@@ -192,30 +195,30 @@ const GameCard = ({ game }) => {
         };
       });
     };
-    console.log(gameInfo.image);
-    const base64Image = await getBase64(gameInfo.image);
-    let image = base64Image.slice(23);
-    // console.log(image);
-    const formData = new FormData();
-    formData.append("name", game.name);
-    formData.append("image", image);
-    const data = {
-      image: gameInfo.image,
-    };
-    console.log(data);
-    console.log(game.name);
-    const response = await axios.patch(
-      "http://localhost:81/games/images/update/" + game.name,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(response);
-    // window.location.reload();
+
+    if (gameInfo.image) {
+      const base64Image = await getBase64(gameInfo.image);
+      let image = base64Image.slice(23);
+      const formData = new FormData();
+      formData.append("name", game.name);
+      formData.append("image", image);
+      const imageData = {
+        image: gameInfo.image,
+      };
+      const response = await axios.patch(
+        "http://localhost:81/games/images/update/" + game.name,
+        imageData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    }
+
+    window.location.reload();
   };
+
   const handleEditClick = () => {
     setIsEditing(true);
     handleViewClick();
@@ -227,12 +230,14 @@ const GameCard = ({ game }) => {
       [field]: e.target.value,
     });
   };
+
   const handleImageClick = () => {
     if (!isEditing) return;
 
     const fileInput = document.getElementById("image-input");
     fileInput && fileInput.click();
   };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -252,7 +257,7 @@ const GameCard = ({ game }) => {
         <UserInfo>
           <UserName>{game.name}</UserName>
           <UserDetail>
-            <Label>Release Day:</Label>
+            <Label>Release Year:</Label>
             <p>{game.release_date}</p>
           </UserDetail>
           <UserDetail>
@@ -286,78 +291,92 @@ const GameCard = ({ game }) => {
               onClick={handleImageClick}
             />
             <h3>{game.name}</h3>
-            {isEditing ? (
-              <>
-                <FormLabel>
-                  Description:
-                  <FormTextarea
-                    value={editValues.description}
-                    onChange={(e) => handleInputChange(e, "description")}
-                    rows="4"
-                    maxLength={150}
-                  />
-                </FormLabel>
-                <FormLabel>
-                  Release Date:
-                  <FormInput
-                    type="text"
-                    value={editValues.release_date}
-                    onChange={(e) => handleInputChange(e, "release_date")}
-                  />
-                </FormLabel>
-                <FormLabel>
-                  Price:
-                  <FormInput
-                    type="text"
-                    value={editValues.price}
-                    onChange={(e) => handleInputChange(e, "price")}
-                  />
-                </FormLabel>
-                <FormLabel>
-                  Rating:
-                  <FormInput
-                    type="text"
-                    value={editValues.rating}
-                    onChange={(e) => handleInputChange(e, "rating")}
-                  />
-                </FormLabel>
-                <FormLabel>
-                  Publisher:
-                  <FormInput
-                    type="text"
-                    value={editValues.publisher}
-                    onChange={(e) => handleInputChange(e, "publisher")}
-                  />
-                </FormLabel>
-                <FormLabel>
-                  Genre:
-                  <FormInput
-                    type="text"
-                    value={editValues.genre}
-                    onChange={(e) => handleInputChange(e, "genre")}
-                  />
-                </FormLabel>
-              </>
-            ) : (
-              <>
-                <p>Price: {game.price}</p>
-                <p>Description: {game.description}</p>
-                <p>Release Date: {game.release_date}</p>
-                <p>Rating: {game.rating}</p>
-                <p>Publisher: {game.publisher}</p>
-                <p>Genre: {game.genre}</p>
-              </>
-            )}
-            <input
-              id="image-input"
-              type="file"
-              style={{ display: "none" }}
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-            <Button className="btn1" onClick={handleCloseModal}>
-              Close
-            </Button>
+            <Form>
+              {isEditing ? (
+                <>
+                  <FormLabel>
+                    <Label>Description</Label>
+                    <FormTextarea
+                      value={editValues.description}
+                      onChange={(e) => handleInputChange(e, "description")}
+                      rows="4"
+                      maxLength={150}
+                    />
+                  </FormLabel>
+                  <FormLabel>
+                    <Label>Release Year</Label>
+                    <FormInput
+                      type="text"
+                      value={editValues.release_date}
+                      onChange={(e) => handleInputChange(e, "release_date")}
+                    />
+                  </FormLabel>
+                  <FormLabel>
+                    <Label>Price</Label>
+                    <FormInput
+                      type="text"
+                      value={editValues.price}
+                      onChange={(e) => handleInputChange(e, "price")}
+                    />
+                  </FormLabel>
+                  <FormLabel>
+                    <Label>Rating</Label>
+                    <FormInput
+                      type="text"
+                      value={editValues.rating}
+                      onChange={(e) => handleInputChange(e, "rating")}
+                    />
+                  </FormLabel>
+                  <FormLabel>
+                    <Label>Publisher</Label>
+                    <FormInput
+                      type="text"
+                      value={editValues.publisher}
+                      onChange={(e) => handleInputChange(e, "publisher")}
+                    />
+                  </FormLabel>
+                  <FormLabel>
+                    <Label>Genre</Label>
+                    <FormInput
+                      type="text"
+                      value={editValues.genre}
+                      onChange={(e) => handleInputChange(e, "genre")}
+                    />
+                  </FormLabel>
+                </>
+              ) : (
+                <>
+                  <p>
+                    <Label>Price:</Label> {game.price}
+                  </p>
+                  <p>
+                    <Label>Description:</Label> {game.description}
+                  </p>
+                  <p>
+                    <Label>Release Year:</Label> {game.release_date}
+                  </p>
+                  <p>
+                    <Label>Rating:</Label> {game.rating}
+                  </p>
+                  <p>
+                    <Label>Publisher:</Label> {game.publisher}
+                  </p>
+                  <p>
+                    <Label>Genre:</Label> {game.genre}
+                  </p>
+                </>
+              )}
+              <input
+                id="image-input"
+                type="file"
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              <Button className="btn1" onClick={handleCloseModal}>
+                Close
+              </Button>
+            </Form>
           </ModalContent>
         </ModalOverlay>
       )}

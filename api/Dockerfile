@@ -57,6 +57,10 @@ COPY ./schemas/games /api/schemas/games
 
 COPY ./controllers/game /api/controllers/game
 
+COPY ./operations/transaction /api/operations/transaction
+
+COPY ./controllers/transactions /api/controllers/transactions
+
 # 
 
 # 

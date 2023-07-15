@@ -55,8 +55,9 @@ function NavbarLine() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/users">Users</Nav.Link>
-            <Nav.Link href="/games">Games</Nav.Link>
+            <Nav.Link href="/admin/users">Users</Nav.Link>
+            <Nav.Link href="/admin/games">Games</Nav.Link>
+            <Nav.Link href="/admin/transactions">Transactions</Nav.Link>
             <NavDropdown title="Settings" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/admin/profile">Profile</NavDropdown.Item>
               <NavDropdown.Divider />

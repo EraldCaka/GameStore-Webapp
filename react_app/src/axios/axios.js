@@ -15,9 +15,10 @@ export const apiCall = (endpoint) => {
     put: (updated, id) => axios.put(url + id, updated),
     deleted: (id) => axios.delete(url + id),
     createImage: (name, url1, image) => axios.post(url + name + url1, image),
+    insertImageGame: (name, image) => axios.post(url + name, image),
     patchImage: (name, image) => axios.patch(url + name, image),
     CreateLibrary: (data) => axios.post(url, data),
-
+    CreateTransaction: (data) => axios.post(url, data),
     complexQuery: (request, method) => {
       let args = "";
       request.forEach((arg) => {

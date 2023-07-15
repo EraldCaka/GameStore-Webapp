@@ -98,7 +98,7 @@ const Account = () => {
           image: userInfo.image,
         };
 
-        console.log(data);
+        //  console.log(data);
         const response = await axios.patch(
           "http://localhost:81/users/images/update/" + userInfo.username,
           data,
@@ -108,7 +108,7 @@ const Account = () => {
             },
           }
         );
-        console.log(response);
+        // console.log(response);
       };
 
       handleImageUpload();
@@ -123,7 +123,7 @@ const Account = () => {
       setUserInfo({
         ...userInfo,
         imageUrl: imageUrl,
-        image: file, // update image instead of file
+        image: file,
       });
 
       console.log(file);
@@ -196,14 +196,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 50px;
-  justify-content: center; /* center horizontally */
-  align-items: center; /* center vertically */
+  justify-content: center;
+  align-items: center;
 
   form {
     display: flex;
     flex-direction: column;
     margin-left: 30px;
-    width: 400px; /* increase width */
+    width: 400px;
 
     label {
       margin-top: 10px;

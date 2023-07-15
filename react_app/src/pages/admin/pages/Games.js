@@ -3,6 +3,7 @@ import { apiCall } from "../../../axios/axios";
 import { NavbarLine } from "../index";
 import GameCard from "./GameCard";
 import styled from "styled-components";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const GamesWrapper = styled.div`
   text-align: center;
@@ -18,7 +19,20 @@ const SearchInput = styled.input`
   margin-bottom: 20px;
 `;
 
+const AddGameButton = styled.button`
+  margin-right: 20px;
+  background-color: #a8e6c8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+`;
+
 const Games = () => {
+  const navigate = useNavigate();
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -27,7 +41,6 @@ const Games = () => {
       try {
         const response = await apiCall("/games").fetchAll();
         setGames(response.data);
-        //   console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -44,9 +57,15 @@ const Games = () => {
     game.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleAddGame = () => {
+    console.log("Add Game clicked");
+    navigate("/games/add");
+  };
+
   return (
     <GamesWrapper>
       <NavbarLine />
+      <AddGameButton onClick={handleAddGame}>Add Game</AddGameButton>
       <SearchInput
         type="text"
         placeholder="Search games..."

@@ -1,8 +1,9 @@
+
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String,LargeBinary
 from sqlalchemy.orm import relationship
 
 from config.database import Base
-
+from sqlalchemy import DateTime
 
 
 class User(Base):
@@ -18,6 +19,8 @@ class User(Base):
     wishlist = relationship("Wishlist", back_populates="user", cascade="all, delete")
     user_image = relationship("UserImage", back_populates="user",uselist=False, cascade="all, delete")
     cart = relationship("Cart", back_populates="user", cascade="all, delete")
+    transaction = relationship("Transaction", back_populates="user", cascade="all, delete")
+
 
 class UserImage(Base):
     __tablename__ = "user_image"
@@ -46,7 +49,7 @@ class Game(Base):
     library = relationship("Library", back_populates="game", cascade="all, delete")
     wishlist = relationship("Wishlist", back_populates="game", cascade="all, delete")
     cart = relationship("Cart", back_populates="game", cascade="all, delete")
-    
+    transaction = relationship("Transaction", back_populates="game", cascade="all, delete")
     
 
 class Library(Base):
@@ -90,3 +93,16 @@ class Cart(Base):
     
     user = relationship("User", back_populates="cart")
     game = relationship("Game", back_populates="cart")       
+
+
+class Transaction(Base):
+    __tablename__ = "transaction"
+    
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    user_id = Column(Integer, ForeignKey(User.user_id))
+    game_name = Column(String, ForeignKey(Game.name))
+    price = Column(Float)
+    date = Column(DateTime(timezone=False))
+    
+    user = relationship("User", back_populates="transaction")
+    game = relationship("Game", back_populates="transaction")

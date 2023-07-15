@@ -10,10 +10,17 @@ import {
   Account,
   CartCard,
 } from "./pages/user/index";
-import { GameInfo } from "./pages/store/index";
+import { GameInfo, Transactions } from "./pages/store/index";
 
 //admin imports
-import { Admin, Games, Users, Profile } from "./pages/admin/pages/index";
+import {
+  Admin,
+  Games,
+  Users,
+  Profile,
+  NewGame,
+  Transactions as AdminTransactions,
+} from "./pages/admin/pages/index";
 
 function App() {
   return (
@@ -30,11 +37,14 @@ function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/store/:gameId" element={<GameInfo />} />
         <Route path="*" element={<Error />} />
+        <Route path="/user/transactions" element={<Transactions />} />
         {/* Admin router Paths*/}
         <Route path="/admin" element={<Admin />} />
-        <Route path="/games" element={<Games />} />
-        <Route path="/users" element={<Users />} />
+        <Route path="/admin/games" element={<Games />} />
+        <Route path="/admin/games/add" element={<NewGame />} />
+        <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/profile" element={<Profile />} />
+        <Route path="/admin/transactions" element={<AdminTransactions />} />
       </Routes>
     </BrowserRouter>
   );

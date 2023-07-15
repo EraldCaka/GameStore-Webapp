@@ -61,6 +61,9 @@ function NavbarLine() {
               <NavDropdown.Item href="/account">Account</NavDropdown.Item>
               <NavDropdown.Item href="/wishlist">Wishlist</NavDropdown.Item>
               <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
+              <NavDropdown.Item href="/user/transactions">
+                Transactions
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
             </NavDropdown>

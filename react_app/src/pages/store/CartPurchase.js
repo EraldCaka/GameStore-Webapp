@@ -59,12 +59,29 @@ const CartPurchase = () => {
         user_id: response.data[0].user_id,
         game_name: gameResponse1.data[0].name,
       };
-
+      const currentDate = new Date();
+      const currentHour = currentDate.getHours();
+      const currentMinute = currentDate.getMinutes();
       console.log(data);
       const addToLibrary = await apiCall("/library").CreateLibrary(data);
       const getCart = await apiCall("/cart/user").fetchById(data.user_id);
+      console.log(getCart.data);
       for (let i = 0; i < getCart.data.length; i++) {
         if (getCart.data[i].game_name === data.game_name) {
+          console.log(gameResponse1.data[i].price);
+          const transactionsData = {
+            user_id: getCart.data[i].user_id,
+            game_name: getCart.data[i].game_name,
+            price: gameResponse1.data[i].price,
+            date: `${currentDate.getFullYear()}-${
+              currentDate.getMonth() + 1
+            }-${currentDate.getDate()} ${currentHour}:${currentMinute}`,
+          };
+          console.log(transactionsData);
+          const addToTransaction = await apiCall(
+            "/transactions"
+          ).CreateTransaction(transactionsData);
+          console.log(addToTransaction);
           const deleteFromCart = await apiCall("/cart").deleted(
             getCart.data[i].id
           );
@@ -74,9 +91,6 @@ const CartPurchase = () => {
         }
       }
       console.log(getCart.data[0].id);
-
-      //const deleteFromCart = await apiCall("/cart").deleted(getCart);
-      //  console.log("delete" + deleteFromCart);
     }
     navigate("/library");
   };
