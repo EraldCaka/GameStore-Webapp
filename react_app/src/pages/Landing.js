@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <Wrapper>
-      <nav className="nav1">
+      <nav className="nav1 nav ">
         <Logo />
       </nav>
       <div className="container page">
@@ -27,7 +27,7 @@ const Landing = () => {
             your next favorite game!
           </p>
 
-          <Link to="/register" className="btn1 btn-hero1">
+          <Link to="/register" className="btn1 btn-hero1 ">
             Login/Register
           </Link>
         </div>

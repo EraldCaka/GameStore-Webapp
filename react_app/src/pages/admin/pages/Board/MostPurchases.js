@@ -2,10 +2,12 @@ import { apiCall } from "../../../../axios/axios";
 import { useEffect, useState } from "react";
 import MostPurchasedCard from "./MostPurchasedCard";
 import styled from "styled-components";
+import PurchasedGraphEl from "../PurchasedGraphEl";
 
 const MostPurchases = () => {
   const [mostPurchases, setMostPurchases] = useState([]);
   const [mostBought, setMostBought] = useState([]);
+  const [gamesPurchaseAmount, setGamesPurchaseAmount] = useState({});
 
   useEffect(() => {
     const getMostPurchases = async () => {
@@ -13,6 +15,7 @@ const MostPurchases = () => {
         const response = await apiCall("/transactions").fetchAll();
         setMostPurchases(response.data);
         getMostBought(response.data);
+        calculateGamesPurchaseAmount(response.data);
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -43,17 +46,50 @@ const MostPurchases = () => {
     setMostBought(top3Games);
   };
 
+  const calculateGamesPurchaseAmount = (data) => {
+    const countMap = {};
+
+    data.forEach((item) => {
+      const gameName = item.game_name;
+      if (countMap[gameName]) {
+        countMap[gameName]++;
+      } else {
+        countMap[gameName] = 1;
+      }
+    });
+
+    const purchaseAmounts = Object.values(countMap);
+    setGamesPurchaseAmount(purchaseAmounts);
+  };
+
   return (
     <div className="mostPurchases">
-      <h2>Most Purchased Games</h2>
+      <MostPurchasedGamesTitle
+        style={{
+          fontSize: "30px",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "20px",
+          fontFamily: "sans-serif",
+        }}
+      >
+        Most Purchased Games
+      </MostPurchasedGamesTitle>
       <CardContainer>
         {mostBought.map((game) => (
           <MostPurchasedCard key={game} gameName={game} />
         ))}
       </CardContainer>
+      <PurchasedGraphEl purchased={gamesPurchaseAmount} games={mostBought} />
     </div>
   );
 };
+
+const MostPurchasedGamesTitle = styled.h2`
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+`;
 
 const CardContainer = styled.div`
   display: flex;

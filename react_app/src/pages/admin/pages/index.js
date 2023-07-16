@@ -6,7 +6,7 @@ import GameCard from "./GameCard";
 import UserCard from "./UserCard";
 import NewGame from "./NewGame";
 import Transactions from "./Transactions";
-
+import PurchasedGraphEl from "./PurchasedGraphEl";
 export {
   Admin,
   Games,
@@ -16,4 +16,5 @@ export {
   UserCard,
   NewGame,
   Transactions,
+  PurchasedGraphEl,
 };

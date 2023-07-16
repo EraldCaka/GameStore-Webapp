@@ -8,6 +8,7 @@ const Wrapper = styled.main`
     height: var(--nav-height);
     display: flex;
     align-items: center;
+    margin-left: 290px;
   }
   .page {
     min-height: calc(100vh - var(--nav-height));
@@ -37,4 +38,5 @@ const Wrapper = styled.main`
     }
   }
 `;
+
 export default Wrapper;

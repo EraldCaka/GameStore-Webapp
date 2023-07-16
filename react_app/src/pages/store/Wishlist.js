@@ -96,7 +96,7 @@ const Wishlist = ({
       }
     }
 
-    navigate("/store");
+    window.location.reload();
   };
   const onclickcart = async () => {
     let tempName = localStorage.getItem("token");

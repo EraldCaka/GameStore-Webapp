@@ -97,8 +97,11 @@ const Transactions = () => {
         {transactions.length > 0 ? (
           transactions.map((transaction) => (
             <TransactionCard key={transaction.id}>
+              <TransactionPrice>
+                Transaction Id: {transaction.id}
+              </TransactionPrice>
               <TransactionGameName>{transaction.game_name}</TransactionGameName>
-              <TransactionPrice>Price: ${transaction.price}</TransactionPrice>
+              <TransactionPrice>Price: {transaction.price}$</TransactionPrice>
               <TransactionDate>
                 Date: {formatDateTime(transaction.date)}
               </TransactionDate>

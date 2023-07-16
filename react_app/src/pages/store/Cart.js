@@ -88,7 +88,7 @@ const CartCard = ({ image, name, price }) => {
       }
     }
 
-    navigate("/store");
+    window.location.reload();
   };
   const onclickcart = async () => {};
 
