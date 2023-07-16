@@ -59,7 +59,7 @@ const Games = () => {
 
   const handleAddGame = () => {
     console.log("Add Game clicked");
-    navigate("/games/add");
+    navigate("/admin/games/add");
   };
 
   return (
