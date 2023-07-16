@@ -90,7 +90,8 @@ const Transactions = () => {
     <div>
       <NavbarLine />
       <HeadingWrapper>
-        <h1>Transactions (Total Amount: ${amount})</h1>
+        <h1>Transactions </h1>
+        <h2>(Amount Spent: ${amount})</h2>
       </HeadingWrapper>
       <TransactionsWrapper>
         {transactions.length > 0 ? (

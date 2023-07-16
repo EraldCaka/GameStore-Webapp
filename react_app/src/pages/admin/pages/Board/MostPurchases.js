@@ -1,5 +1,7 @@
 import { apiCall } from "../../../../axios/axios";
 import { useEffect, useState } from "react";
+import MostPurchasedCard from "./MostPurchasedCard";
+import styled from "styled-components";
 
 const MostPurchases = () => {
   const [mostPurchases, setMostPurchases] = useState([]);
@@ -44,14 +46,24 @@ const MostPurchases = () => {
   return (
     <div className="mostPurchases">
       <h2>Most Purchased Games</h2>
-
-      <ul>
+      <CardContainer>
         {mostBought.map((game) => (
-          <li key={game}>{game}</li>
+          <MostPurchasedCard key={game} gameName={game} />
         ))}
-      </ul>
+      </CardContainer>
     </div>
   );
 };
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  > * {
+    margin-right: 30px;
+  }
+`;
 
 export default MostPurchases;

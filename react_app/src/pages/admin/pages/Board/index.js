@@ -1,3 +1,3 @@
 import MostPurchases from "./MostPurchases";
-
-export { MostPurchases };
+import MostPurchasedCard from "./MostPurchasedCard";
+export { MostPurchases, MostPurchasedCard };
