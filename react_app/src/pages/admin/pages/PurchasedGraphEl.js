@@ -4,7 +4,7 @@ import { Bar } from "react-chartjs-2";
 Chart.register(CategoryScale);
 function PurchasedGraphEl({ purchased, games }) {
   console.log(purchased);
-  console.log(games[0]);
+  console.log(games);
   const data = {
     labels: [games[0], games[1], games[2]],
     datasets: [
