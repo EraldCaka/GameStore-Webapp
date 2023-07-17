@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders FormRow component 1`] = `
+<div
+  class="form-row"
+>
+  <label
+    class="form-label"
+    for="name-input"
+  >
+    name
+  </label>
+  <input
+    class="form-input"
+    id="name-input"
+    name="name"
+    type="text"
+    value="john.doe"
+  />
+</div>
+`;
