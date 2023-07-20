@@ -6,3 +6,5 @@ sqlalchemy
 PyJWT
 python-multipart
 requests
+httpx
+pytest
