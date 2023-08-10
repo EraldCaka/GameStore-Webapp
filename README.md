@@ -2,7 +2,6 @@
 
 Senior Project and Software Engineering Project for Empire State University.
 
-(ongoing project almost half done)
 
 ## Download Docker
 
@@ -45,7 +44,7 @@ npm start
 
 ## Current Update
 
-<li>Profile Pictures<li>
+<li>Profile Pictures</li>
 <li>Default Profile Picture automatically assigned when registered</li>
 <li>Can change the profile picture at the account section</li>
 
@@ -60,6 +59,7 @@ npm start
 <li>buffer</li>
 <li>base64</li>
 
+
 ## Python Libraries
 
 <li>Fastapi(Framework)</li>
@@ -69,13 +69,14 @@ npm start
 <li>sqlalchemy</li>
 <li>PyJWT</li>
 <li>requests</li>
+<li>middleware</li>
 
 ## Database
 
-<li>Dbeaver</li>
 <li>Postgres</li>
 
 ## Utilities
 
 <li>Docker</li>
 <li>Postman</li>
+<li>Dbeaver</li>
